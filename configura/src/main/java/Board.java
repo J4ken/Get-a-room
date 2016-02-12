@@ -23,7 +23,7 @@ public class Board
      * @param width - board-width
      */
     public Board(int height, int width) {
-	    this.squares = new SquareType[height][width];
+	squares = new SquareType[height][width];
 
         /**
          * Sets the room_squares (52x52) to SquareType.FLOOR
@@ -39,4 +39,5 @@ public class Board
             }
         }
     }
+
 }
