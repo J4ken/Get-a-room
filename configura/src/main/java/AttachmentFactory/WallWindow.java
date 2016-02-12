@@ -28,7 +28,7 @@ public class WallWindow implements Attachment {
                 direction = Direction.EAST;
             }
         } else if (yStart == yEnd) {
-            if (xStart < xEnd) {
+            if (xStart > xEnd) {
                 direction = Direction.NORTH;
             } else {
                 direction = Direction.SOUTH;
@@ -48,19 +48,19 @@ public class WallWindow implements Attachment {
         return direction;
     }
 
-    public int getxStart() {
+    public int getXStart() {
         return xStart;
     }
 
-    public int getyStart() {
+    public int getYStart() {
         return yStart;
     }
 
-    public int getxEnd() {
+    public int getXEnd() {
         return xEnd;
     }
 
-    public int getyEnd() {
+    public int getYEnd() {
         return yEnd;
     }
 }
