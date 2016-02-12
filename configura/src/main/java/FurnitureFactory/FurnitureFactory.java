@@ -11,7 +11,7 @@ public class FurnitureFactory {
         } else if (furnitureType == "soffa") {
             return new Sofa();
         }
-           
+
         }
     }
 }
