@@ -5,11 +5,24 @@ package main.java;
  */
 public class Board
 {
-    private int heigh;
-    private int width;
 
+    /**
+     * Board width and height constants
+     */
+    final static int ROOM_HEIGHT = 52;
+    final static int ROOM_WIDTH = 52;
+
+    /**
+     * Declare the type used to represent the game board.
+     */
+    private SquareType[][] squares;
 
     public Board(int height, int width) {
-	
+	    this.squares = new SquareType[height][width];
+
+        /**
+         * Sets the room_squares (52x52) to SquareType.EMPTY
+         * and the frame to SquareType.WALL
+         */
     }
 }
