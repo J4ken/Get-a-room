@@ -1,4 +1,4 @@
-package main.java;
+package main.java.FurnitureFactory;
 
 /**
  * Created by Jacob on 2/12/2016.
