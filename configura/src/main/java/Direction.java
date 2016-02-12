@@ -5,5 +5,5 @@ package main.java;
  */
 public enum Direction
 {
-    N, W, E, S
+    UNKNOWN, NORTH, EAST, SOUTH, WEST
 }

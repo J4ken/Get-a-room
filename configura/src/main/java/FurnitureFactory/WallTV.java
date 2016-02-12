@@ -5,9 +5,9 @@ import main.java.Direction;
 /**
  * Created by lukas on 2016-02-12.
  */
-public class Bed implements Furniture {
-    private int width = 90;
-    private int height = 200;
+public class WallTV implements Furniture {
+    private int width = 3;
+    private int height = 80;
     private Direction direction = Direction.UNKNOWN;
 
     @Override
