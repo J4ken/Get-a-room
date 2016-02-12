@@ -5,4 +5,5 @@ package main.java.FurnitureFactory;
  */
 public interface AbstractFurniture
 {
+
 }
