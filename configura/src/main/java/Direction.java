@@ -1,0 +1,8 @@
+package main.java;
+
+/**
+ * Created by lukas on 2016-02-12.
+ */
+public enum Direction {
+    UNKNOWN, NORTH, WEST, SOUTH, EAST
+}
