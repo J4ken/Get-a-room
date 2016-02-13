@@ -16,8 +16,6 @@ public class test {
      * @param args
      */
     public static void main(String args[]) {
-        FurnitureFactory furnitureFactory = new FurnitureFactory();
-        List<Furniture> furnitureList = new ArrayList<>();
 
         AttachmentFactory attachmentFactory = new AttachmentFactory();
         List<Attachment> attachmentList = new ArrayList<>();
@@ -29,6 +27,10 @@ public class test {
         attachmentList.add(door1);
         attachmentList.add(window1);
         attachmentList.add(window2);
+
+
+        FurnitureFactory furnitureFactory = new FurnitureFactory();
+        List<Furniture> furnitureList = new ArrayList<>();
 
         Furniture kuk1 = furnitureFactory.createFurniture("soFfA");
         Furniture kuk2 = furnitureFactory.createFurniture("SkRiVbOrd");

@@ -5,6 +5,7 @@ import main.java.AttachmentFactory.AttachmentFactory;
 import main.java.AttachmentFactory.Door;
 import main.java.FurnitureFactory.Bed;
 import main.java.FurnitureFactory.Furniture;
+import main.java.FurnitureFactory.FurnitureFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,6 @@ import java.util.List;
 public class FurnitureAI {
     private List<Attachment> attachmentList = null;
     private List<Furniture> furnitureList = null;
-    private Board board;
 
     public FurnitureAI() {
 
@@ -27,12 +27,13 @@ public class FurnitureAI {
         furnitureList = collectFurnitureFromWarehouse();
         newBoard = placeAttachments(newBoard);
 
-        //placeFurnitures();
+        newBoard = placeFurnitures(newBoard);
 
         return newBoard;
     }
 
-    private void placeFurnitures() {
+    private Board placeFurnitures(Board board) {
+        Board newBoard = board;
         // Check if there is a bed
         boolean containsBed = false;
         for(int i = 0; i < furnitureList.size(); i++) {
@@ -41,12 +42,220 @@ public class FurnitureAI {
             }
         }
         if(containsBed) {
-            doBedModule();
+            newBoard = doBedModule(board);
         }
+
+        return newBoard;
     }
 
-    private void doBedModule() {
+    private Board doBedModule(Board board) {
+        // Count beds
+        Board newBoard = board;
+        int beds = 0;
+        List<Furniture> bedList = new ArrayList<>();
+        for(int i = 0; i < furnitureList.size(); i++) {
+            if(furnitureList.get(i).getClass().equals(Bed.class)) {
+                beds++;
+                bedList.add(furnitureList.get(i));
+            }
+        }
+        if(beds == 1) {
+            // 1 beds
+            // find corner furthest away from the door/windows;
+            // Start top left
+            int topLeft = topLeftPrio(board);
+            int topRight = topRightPrio(board);
+            int bottomLeft = bottomLeftPrio(board);
+            int bottomRight = bottomRightPrio(board);
+            // bestCorner :: 0 = topleft, 1 = topright, 2 = bottomleft, 3 = bottomright
+            int bestCorner = decideCorner(topLeft, topRight, bottomLeft, bottomRight);
+            Furniture bed = bedList.get(0);
+            if(bestCorner == 0) {
+                //TopLeft
+                int ySquares = bed.getHeight() / 10;
+                int xSquares = bed.getWidth() / 10;
+                int yStart = 1;
+                int xStart = 1;
+                Boolean mainPlaced = false;
+                for(int y = yStart; y < (yStart + ySquares); y++) {
+                    for (int x = xStart; x < (xStart + xSquares); x++) {
+                        // Set bed direction to south
+                        bed.setDirection(Direction.SOUTH);
+                        board.setFurnitures(y, x, bed);
+                        if (!mainPlaced) {
+                            mainPlaced = true;
+                            newBoard.setSquares(y, x, SquareType.BEDMAIN);
+                        } else {
+                            newBoard.setSquares(y, x, SquareType.BED);                        }
+                    }
+                }
+            } else if (bestCorner == 1) {
+                //TopRight
+                int ySquares = bed.getWidth() / 10;
+                int xSquares = bed.getHeight() / 10;
+                int yStart = 1;
+                int xStart = Board.ROOM_WIDTH - 1 - xSquares;
+                Boolean mainPlaced = false;
+                for(int y = yStart; y < (yStart + ySquares); y++) {
+                    for (int x = xStart; x < (xStart + xSquares); x++) {
+                        // Set bed direction to west
+                        bed.setDirection(Direction.WEST);
+                        board.setFurnitures(y, x, bed);
+                        if (!mainPlaced) {
+                            mainPlaced = true;
+                            newBoard.setSquares(y, x, SquareType.BEDMAIN);
+                        } else {
+                            newBoard.setSquares(y, x, SquareType.BED);                        }
+                    }
+                }
+            } else if (bestCorner == 2) {
+                //BottomLeft
+                int ySquares = bed.getWidth() / 10;
+                int xSquares = bed.getHeight() / 10;
+                int yStart = Board.ROOM_HEIGHT - 1 - ySquares;
+                int xStart = 1;
+                Boolean mainPlaced = false;
+                for(int y = yStart; y < (yStart + ySquares); y++) {
+                    for (int x = xStart; x < (xStart + xSquares); x++) {
+                        // Set bed direction to eaST
+                        bed.setDirection(Direction.EAST);
+                        board.setFurnitures(y, x, bed);
+                        if (!mainPlaced) {
+                            mainPlaced = true;
+                            newBoard.setSquares(y, x, SquareType.BEDMAIN);
+                        } else {
+                            newBoard.setSquares(y, x, SquareType.BED);                        }
+                    }
+                }
+            } else {
+                //BottomRight
+                int ySquares = bed.getWidth() / 10;
+                int xSquares = bed.getHeight() / 10;
+                int yStart = Board.ROOM_HEIGHT - 1 - ySquares;
+                int xStart = Board.ROOM_WIDTH - 1 - xSquares;
+                Boolean mainPlaced = false;
+                for(int y = yStart; y < (yStart + ySquares); y++) {
+                    for (int x = xStart; x < (xStart + xSquares); x++) {
+                        // Set bed direction to eaST
+                        bed.setDirection(Direction.NORTH);
+                        board.setFurnitures(y, x, bed);
+                        if (!mainPlaced) {
+                            mainPlaced = true;
+                            newBoard.setSquares(y, x, SquareType.BEDMAIN);
+                        } else {
+                            newBoard.setSquares(y, x, SquareType.BED);                        }
+                    }
+                }
+            }
+        } else {
+            // 2 beds
+        }
+        return newBoard;
+    }
 
+    private int decideCorner(int topLeft, int topRight, int bottomLeft, int bottomRight) {
+        int bestValue = 0;
+        int bestCorner = 0;
+        if(topLeft > bestValue) {
+            bestCorner = 0;
+            bestValue = topLeft;
+        }
+        if(topRight > bestValue) {
+            bestCorner = 1;
+            bestValue = topRight;
+        }
+        if(bottomLeft > bestValue) {
+            bestCorner = 2;
+            bestValue = bottomLeft;
+        }
+        if(bottomRight > bestValue) {
+            bestCorner = 3;
+        }
+        return bestCorner;
+    }
+
+    private int topLeftPrio(Board board) {
+        int prio = 0;
+        for(int x = 0; x < Board.ROOM_WIDTH; x++) {
+            if(board.getSquareType(0, x).equals(SquareType.WINDOWMAIN) || board.getSquareType(0, x).equals(SquareType.WINDOW) ||
+                    board.getSquareType(0, x).equals(SquareType.DOORMAIN) || board.getSquareType(0, x).equals(SquareType.DOOR)) {
+                break;
+            } else {
+                prio += 1;
+            }
+        }
+        for(int y = 0; y < Board.ROOM_HEIGHT; y++) {
+            if(board.getSquareType(y, 0).equals(SquareType.WINDOWMAIN) || board.getSquareType(y, 0).equals(SquareType.WINDOW) ||
+                    board.getSquareType(y, 0).equals(SquareType.DOORMAIN) || board.getSquareType(y, 0).equals(SquareType.DOOR)) {
+                break;
+            } else {
+                prio += 1;
+            }
+        }
+        return prio;
+    }
+
+    private int topRightPrio(Board board) {
+        int prio = 0;
+        for(int x = Board.ROOM_WIDTH - 1; x >= 0; x--) {
+            if(board.getSquareType(0, x).equals(SquareType.WINDOWMAIN) || board.getSquareType(0, x).equals(SquareType.WINDOW) ||
+                    board.getSquareType(0, x).equals(SquareType.DOORMAIN) || board.getSquareType(0, x).equals(SquareType.DOOR)) {
+                break;
+            } else {
+                prio += 1;
+            }
+        }
+        for(int y = 0; y < Board.ROOM_HEIGHT; y++) {
+            if(board.getSquareType(y, Board.ROOM_WIDTH - 1).equals(SquareType.WINDOWMAIN) || board.getSquareType(y, Board.ROOM_WIDTH - 1).equals(SquareType.WINDOW) ||
+                    board.getSquareType(y, Board.ROOM_WIDTH - 1).equals(SquareType.DOORMAIN) || board.getSquareType(y, Board.ROOM_WIDTH - 1).equals(SquareType.DOOR)) {
+                break;
+            } else {
+                prio += 1;
+            }
+        }
+        return prio;
+    }
+
+    private int bottomLeftPrio(Board board) {
+        int prio = 0;
+        for(int x = 0; x < Board.ROOM_WIDTH; x++) {
+            if(board.getSquareType(Board.ROOM_HEIGHT - 1, x).equals(SquareType.WINDOWMAIN) || board.getSquareType(Board.ROOM_HEIGHT - 1, x).equals(SquareType.WINDOW) ||
+                    board.getSquareType(Board.ROOM_HEIGHT - 1, x).equals(SquareType.DOORMAIN) || board.getSquareType(Board.ROOM_HEIGHT - 1, x).equals(SquareType.DOOR)) {
+                break;
+            } else {
+                prio += 1;
+            }
+        }
+        for(int y = Board.ROOM_HEIGHT - 1; y >= 0; y--) {
+            if(board.getSquareType(y, 0).equals(SquareType.WINDOWMAIN) || board.getSquareType(y, 0).equals(SquareType.WINDOW) ||
+                    board.getSquareType(y, 0).equals(SquareType.DOORMAIN) || board.getSquareType(y, 0).equals(SquareType.DOOR)) {
+                break;
+            } else {
+                prio += 1;
+            }
+        }
+        return prio;
+    }
+
+    private int bottomRightPrio(Board board) {
+        int prio = 0;
+        for(int x = Board.ROOM_WIDTH - 1; x >= 0; x--) {
+            if(board.getSquareType(Board.ROOM_HEIGHT - 1, x).equals(SquareType.WINDOWMAIN) || board.getSquareType(Board.ROOM_HEIGHT - 1, x).equals(SquareType.WINDOW) ||
+                    board.getSquareType(Board.ROOM_HEIGHT - 1, x).equals(SquareType.DOORMAIN) || board.getSquareType(Board.ROOM_HEIGHT - 1, x).equals(SquareType.DOOR)) {
+                break;
+            } else {
+                prio += 1;
+            }
+        }
+        for(int y = Board.ROOM_HEIGHT - 1; y >= 0; y--) {
+            if(board.getSquareType(y, Board.ROOM_WIDTH - 1).equals(SquareType.WINDOWMAIN) || board.getSquareType(y, Board.ROOM_WIDTH - 1).equals(SquareType.WINDOW) ||
+                    board.getSquareType(y, Board.ROOM_WIDTH - 1).equals(SquareType.DOORMAIN) || board.getSquareType(y, Board.ROOM_WIDTH - 1).equals(SquareType.DOOR)) {
+                break;
+            } else {
+                prio += 1;
+            }
+        }
+        return prio;
     }
 
 
@@ -72,104 +281,49 @@ public class FurnitureAI {
             if(yStart == 50) yStart += 1;
 
             // TEST
-            newBoard.setAttachments(yStart, xStart, obj);
-            if(obj.getClass().equals(Door.class)) {
-                newBoard.setSquares(yStart, xStart, SquareType.DOORMAIN);
-            } else {
-                newBoard.setSquares(yStart, xStart, SquareType.WINDOWMAIN);
-            }
-//
-//            if(dir.equals(Direction.NORTH)) {
-//                Boolean mainPlaced = false;
-//                for (int x = xStart; x > (xStart - xSquares); x--) {
-//                    for(int y = yStart; y > (yStart - ySquares); y--) {
-//                        board.setAttachments(y, x, obj);
-//                        if (!mainPlaced) {
-//                            mainPlaced = true;
-//                            if(obj.getClass().equals(Door.class)) {
-//                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
-//                            } else {
-//                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
-//                            }
-//                        } else {
-//                            if(obj.getClass().equals(Door.class)) {
-//                                newBoard.setSquares(y, x, SquareType.DOOR);
-//                            } else {
-//                                newBoard.setSquares(y, x, SquareType.WINDOW);
-//                            }
-//                        }
-//                    }
-//                }
-//            } else if (dir.equals(Direction.SOUTH)) {
-//                Boolean mainPlaced = false;
-//                for (int x = xStart; x < (xStart + xSquares); x++) {
-//                    for(int y = yStart; y < (yStart + ySquares); y++) {
-//                        board.setAttachments(y, x, obj);
-//                        if (!mainPlaced) {
-//                            mainPlaced = true;
-//                            if(obj.getClass().equals(Door.class)) {
-//                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
-//                            } else {
-//                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
-//                            }
-//                        } else {
-//                            if(obj.getClass().equals(Door.class)) {
-//                                newBoard.setSquares(y, x, SquareType.DOOR);
-//                            } else {
-//                                newBoard.setSquares(y, x, SquareType.WINDOW);
-//                            }
-//                        }
-//                    }
-//                }
-//            } else if (dir.equals(Direction.WEST)) {
-//                Boolean mainPlaced = false;
-//                for (int x = xStart; x > (xStart - xSquares); x--) {
-//                    for(int y = yStart; y < (yStart + ySquares); y++) {
-//                        board.setAttachments(y, x, obj);
-//                        if (!mainPlaced) {
-//                            mainPlaced = true;
-//                            if(obj.getClass().equals(Door.class)) {
-//                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
-//                            } else {
-//                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
-//                            }
-//                        } else {
-//                            if(obj.getClass().equals(Door.class)) {
-//                                newBoard.setSquares(y, x, SquareType.DOOR);
-//                            } else {
-//                                newBoard.setSquares(y, x, SquareType.WINDOW);
-//                            }
-//                        }
-//                    }
-//                }
+//            newBoard.setAttachments(yStart, xStart, obj);
+//            if(obj.getClass().equals(Door.class)) {
+//                newBoard.setSquares(yStart, xStart, SquareType.DOORMAIN);
 //            } else {
-//                Boolean mainPlaced = false;
-//                for (int x = xStart; x < (xStart + xSquares); x++) {
-//                    for(int y = yStart; y > (yStart - ySquares); y--) {
-//                        board.setAttachments(y, x, obj);
-//                        if (!mainPlaced) {
-//                            mainPlaced = true;
-//                            if(obj.getClass().equals(Door.class)) {
-//                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
-//                            } else {
-//                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
-//                            }
-//                        } else {
-//                            if(obj.getClass().equals(Door.class)) {
-//                                newBoard.setSquares(y, x, SquareType.DOOR);
-//                            } else {
-//                                newBoard.setSquares(y, x, SquareType.WINDOW);
-//                            }
-//                        }
-//                    }
-//                }
+//                newBoard.setSquares(yStart, xStart, SquareType.WINDOWMAIN);
 //            }
+//
+            Boolean mainPlaced = false;
+            for(int y = yStart; y < (yStart + ySquares); y++) {
+                for (int x = xStart; x < (xStart + xSquares); x++) {
+                    board.setAttachments(y, x, obj);
+                    if (!mainPlaced) {
+                        mainPlaced = true;
+                        if(obj.getClass().equals(Door.class)) {
+                            newBoard.setSquares(y, x, SquareType.DOORMAIN);
+                        } else {
+                            newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
+                        }
+                    } else {
+                        if(obj.getClass().equals(Door.class)) {
+                            newBoard.setSquares(y, x, SquareType.DOOR);
+                        } else {
+                            newBoard.setSquares(y, x, SquareType.WINDOW);
+                        }
+                    }
+                }
+            }
         }
         return newBoard;
     }
 
     private List<Furniture> collectFurnitureFromWarehouse() {
         List<Furniture> newFurnitureList = new ArrayList<>();
+
+        /*
+        Code used for testing!!
+         */
+        FurnitureFactory furnitureFactory = new FurnitureFactory();
+
+        Furniture kuk1 = furnitureFactory.createFurniture("säNg");
+
+        newFurnitureList.add(kuk1);
+
         return newFurnitureList;
     }
 
