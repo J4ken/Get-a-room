@@ -167,8 +167,63 @@ public class FurnitureAI {
                             }
                         }
                     }
-                }
+                    workstations -= 1;
+                }}
 
+                if(board.getSquareType(1, 30).equals(SquareType.BEDMAIN) && workstations > 0) {
+                    //Bed in topleft, check if wall is free, if it is, put workstation there.
+                    int spaceLeft = 0;
+                    for(int x = 30; x >= 0; x--) {
+                        if(board.getSquareType(1, x) == SquareType.WALL || board.getSquareType(1, x) == SquareType.WINDOW || board.getSquareType(1, x) == SquareType.WINDOWMAIN) {
+                            spaceLeft++;
+                        } else {
+                            break;
+                        }
+                    }
+                    if(spaceLeft > 14) {
+                        // There is space, put a goddamn fucking tablefuck here.
+                        if(true) {
+                            Furniture deskFur = deskList.get(deskList.size() - 1);
+                            int ySquares = deskFur.getHeight() / 10;
+                            int xSquares = deskFur.getWidth() / 10;
+                            int yStart = 1;
+                            int xStart = 30;
+                            boolean mainPlaced = false;
+                            for (int y = yStart; y < (yStart + ySquares); y++) {
+                                for (int x = xStart; x < (xStart + xSquares); x++) {
+                                    deskFur.setDirection(Direction.SOUTH);
+                                    board.setFurnitures(1, 30, deskFur);
+                                    if (!mainPlaced) {
+                                        mainPlaced = true;
+                                        newBoard.setSquares(y, x, SquareType.DESKMAIN);
+                                    } else {
+                                        newBoard.setSquares(y, x, SquareType.DESK);
+                                    }
+                                }
+                            }
+                        }
+                        // Put a goddamn chairfuck next to it
+                        if(true) {
+                            Furniture chairFuck = deskChairList.get(deskChairList.size() - 1);
+                            int ySquares = chairFuck.getHeight() / 10;
+                            int xSquares = chairFuck.getWidth() / 10;
+                            int yStart = 9;
+                            int xStart = 34;
+                            boolean mainPlaced = false;
+                            for (int y = yStart; y < (yStart + ySquares); y++) {
+                                for (int x = xStart; x < (xStart + xSquares); x++) {
+                                    chairFuck.setDirection(Direction.NORTH);
+                                    board.setFurnitures(9, 34, chairFuck);
+                                    if (!mainPlaced) {
+                                        mainPlaced = true;
+                                        newBoard.setSquares(y, x, SquareType.DESKCHAIRMAIN);
+                                    } else {
+                                        newBoard.setSquares(y, x, SquareType.DESKCHAIR);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 // ------------------- //
 
             }
