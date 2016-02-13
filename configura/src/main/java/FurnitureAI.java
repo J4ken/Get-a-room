@@ -386,6 +386,7 @@ public class FurnitureAI {
         int bottomRight = bottomRightPrio(board);
         int bestCorner = decideCorner(topLeft, topRight, bottomLeft, bottomRight);
         int secondBest = decideSecondBest(topLeft,topRight, bottomLeft, bottomRight);
+        
 
 
         // 1 beds
