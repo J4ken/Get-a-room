@@ -5,6 +5,7 @@ import main.java.AttachmentFactory.AttachmentFactory;
 import main.java.AttachmentFactory.Door;
 import main.java.FurnitureFactory.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +20,26 @@ public class FurnitureAI {
 
     }
 
-    public Board decorateRoom(Board board) {
+    public Board decorateRoom(Board board) throws IOException, NotInBoardBoundsException {
         Board newBoard = board;
-        attachmentList = collectAttachmentsFromWarehouse();
-        furnitureList = collectFurnitureFromWarehouse();
+        FurnitureInventory lager = new FurnitureInventory();
+
+        ReadFile file = new ReadFile("configura\\src\\main\\resources\\test_file.txt");
+        String[] furniture = new String[0];
+        try {
+            furniture = file.getReadFurniture();
+            for(int i=0; i<furniture.length; i++)
+                System.out.println(furniture[i]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NotInBoardBoundsException e) {
+            e.printStackTrace();
+        }
+
+        lager.CreateFurniture(furniture);
+
+        attachmentList = collectAttachmentsFromWarehouse(lager);
+        furnitureList = collectFurnitureFromWarehouse(lager);
         newBoard = placeAttachments(newBoard);
 
         newBoard = placeFurnitures(newBoard);
@@ -77,6 +94,8 @@ public class FurnitureAI {
     }
 
     private Board doWorkStationModule(Board board) {
+        Board newBoard = board;
+
         int desk = 0;
         List<Furniture> deskList = new ArrayList<>();
         for(int i = 0; i < furnitureList.size(); i++) {
@@ -120,9 +139,9 @@ public class FurnitureAI {
                                 board.setFurnitures(15, 1, deskFur);
                                 if (!mainPlaced) {
                                     mainPlaced = true;
-                                    board.setSquares(y, x, SquareType.DESKMAIN);
+                                    newBoard.setSquares(y, x, SquareType.DESKMAIN);
                                 } else {
-                                    board.setSquares(y, x, SquareType.DESK);
+                                    newBoard.setSquares(y, x, SquareType.DESK);
                                 }
                             }
                         }
@@ -141,9 +160,9 @@ public class FurnitureAI {
                                 board.setFurnitures(19, 9, chairFuck);
                                 if (!mainPlaced) {
                                     mainPlaced = true;
-                                    board.setSquares(y, x, SquareType.DESKCHAIRMAIN);
+                                    newBoard.setSquares(y, x, SquareType.DESKCHAIRMAIN);
                                 } else {
-                                    board.setSquares(y, x, SquareType.DESKCHAIR);
+                                    newBoard.setSquares(y, x, SquareType.DESKCHAIR);
                                 }
                             }
                         }
@@ -154,6 +173,7 @@ public class FurnitureAI {
 
             }
         }
+        return newBoard;
     }
 
     private Board doMatModule(Board board) {
@@ -607,43 +627,45 @@ public class FurnitureAI {
         return newBoard;
     }
 
-    private List<Furniture> collectFurnitureFromWarehouse() {
-        List<Furniture> newFurnitureList = new ArrayList<>();
+    private List<Furniture> collectFurnitureFromWarehouse(FurnitureInventory lager) {
+        List<Furniture> newFurnitureList;
 
-        /*
-        Code used for testing!!
-         */
-        FurnitureFactory furnitureFactory = new FurnitureFactory();
-
-        Furniture kuk1 = furnitureFactory.createFurniture("säNg");
-        Furniture kuk2 = furnitureFactory.createFurniture("säNg");
-        newFurnitureList.add(kuk1);
-        newFurnitureList.add(kuk2);
-
-
-        Furniture kuk3 = furnitureFactory.createFurniture("matta");
-        Furniture kuk4 = furnitureFactory.createFurniture("matta");
-        newFurnitureList.add(kuk3);
-        newFurnitureList.add(kuk4);
+        newFurnitureList = lager.getFurnitureList();
+//        /*
+//        Code used for testing!!
+//         */
+//        FurnitureFactory furnitureFactory = new FurnitureFactory();
+//
+//        Furniture kuk1 = furnitureFactory.createFurniture("säNg");
+//        Furniture kuk2 = furnitureFactory.createFurniture("säNg");
+//        newFurnitureList.add(kuk1);
+//        newFurnitureList.add(kuk2);
+//
+//
+//        Furniture kuk3 = furnitureFactory.createFurniture("matta");
+//        Furniture kuk4 = furnitureFactory.createFurniture("matta");
+//        newFurnitureList.add(kuk3);
+//        newFurnitureList.add(kuk4);
 
         return newFurnitureList;
     }
 
-    private List<Attachment> collectAttachmentsFromWarehouse() {
-        List<Attachment> newAttachmentList = new ArrayList<>();
+    private List<Attachment> collectAttachmentsFromWarehouse(FurnitureInventory lager) {
+        List<Attachment> newAttachmentList;
+        newAttachmentList = lager.getAttachmentList();
 
-        /*
-        Code used for testing!!
-         */
-        AttachmentFactory attachmentFactory = new AttachmentFactory();
-
-        Attachment door1 = attachmentFactory.createAttachment("dÖrR", 300, 500, 390, 500);
-        Attachment window1 = attachmentFactory.createAttachment("FöNStEr", 100, 0, 200, 0);
-        Attachment window2 = attachmentFactory.createAttachment("fÖnStEr", 500, 100, 500, 200);
-
-        newAttachmentList.add(door1);
-        newAttachmentList.add(window1);
-        newAttachmentList.add(window2);
+//        /*
+//        Code used for testing!!
+//         */
+//        AttachmentFactory attachmentFactory = new AttachmentFactory();
+//
+//        Attachment door1 = attachmentFactory.createAttachment("dÖrR", 300, 500, 390, 500);
+//        Attachment window1 = attachmentFactory.createAttachment("FöNStEr", 100, 0, 200, 0);
+//        Attachment window2 = attachmentFactory.createAttachment("fÖnStEr", 500, 100, 500, 200);
+//
+//        newAttachmentList.add(door1);
+//        newAttachmentList.add(window1);
+//        newAttachmentList.add(window2);
 
 
         return newAttachmentList;
