@@ -11,18 +11,21 @@ public class Configura
 {
     public static void main(String[] args) throws IOException, NotInBoardBoundsException {
 	System.out.println("wabadabadubdub");
-
+/*
 	MainFrame frame = new MainFrame();
 	frame.setUpFrame();
 	frame.pack();
 	frame.setVisible(true);
-	ReadFile buildFurniture = new ReadFile("/home/sarsv839/Get-a-room/configura/src/main/resources/test_file.txt");
 
-	/*for(String c : buildFurniture.getReadFurniture()){
-	    System.out.println(c);
-	}*/
+	ReadFile buildFurniture = new ReadFile("/home/sarsv839/Get-a-room/configura/src/main/resources/test_file.txt");
 	FurnitureInventory furniture = new FurnitureInventory();
 	furniture.CreateFurniture(buildFurniture.getReadFurniture());
 	furniture.getFurnitureList();
+	*/
+	ReadFile read = new ReadFile("/home/sarsv839/Get-a-room/configura/src/main/resources/test_file.txt");
+	read.getReadFurniture();
+	Board board = new Board(500,500);
+	LayoutPanel ngt = new LayoutPanel();
+	ngt.generateOutput(board);
     }
 }
