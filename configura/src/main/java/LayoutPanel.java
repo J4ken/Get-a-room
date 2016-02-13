@@ -6,7 +6,10 @@ package main.java;
 
 import java.awt.*;
 import javax.swing.*;
+import java.io.IOException;
+import java.util.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 
 /**
@@ -85,7 +88,7 @@ public class LayoutPanel extends JPanel
     /**
      *  renders the room according to the board
      */
-    public void renderRoom(Board board){
+    public void renderRoom(Board board) throws IOException, NotInBoardBoundsException {
         System.out.println("render room");
         FurnitureAI ai = new FurnitureAI();
         board = ai.decorateRoom(board);
@@ -93,11 +96,39 @@ public class LayoutPanel extends JPanel
         System.out.println("rendered");
     }
 
-//    @Override
-//    public void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-//        ii.paintIcon(this, g, 0, 0);
-//    }
+    public List<String> generateOutput(Board board) throws IOException {
+        WriteFile write = new WriteFile("/home/sarsv839/Get-a-room/configura/src/main/resources/test_file_output.txt", true);
+        List<String> output = new ArrayList<>();
+        StringBuilder furnitureSpot = new StringBuilder();
+        for(int h = 0; h < board.ROOM_HEIGHT; h++){
+            for(int w = 0; w < board.ROOM_WIDTH; w++) {
+
+                if (board.getSquareType(h, w).equals(SquareType.WINDOWMAIN)) {
+                    Direction dir = board.getAttachments(h, w).getDirection();
+                    furnitureSpot.append("Fönster\t" + h + w);
+
+                } else if (board.getSquareType(h, w).equals(SquareType.DOORMAIN)) {
+                    Direction dir = board.getAttachments(h, w).getDirection();
+                    furnitureSpot.append("Dörr\t" + h +"," + w+",");
+                } else if (board.getSquareType(h, w).equals(SquareType.BEDMAIN)) {
+                    Direction dir = board.getFurniture(h, w).getDirection();
+                    furnitureSpot.append("Säng\t" + h +"," + w+",");
+                } else if (board.getSquareType(h, w).equals(SquareType.SOFAMAIN)) {
+                    Direction dir = board.getFurniture(h, w).getDirection();
+                    furnitureSpot.append("Soffa\t" +  h +"," + w+",");
+                } else if (board.getSquareType(h, w).equals(SquareType.DESKMAIN)) {
+                    Direction dir = board.getFurniture(h, w).getDirection();
+                    furnitureSpot.append("Skrivbord\t" + h +"," + w+",");
+                } else {
+                }
+                output.add(furnitureSpot.toString());
+            }
+        }
+        for(String c: output) {
+            write.writeToFile(c);
+        }
+        return output;
+    }
 
     private void addLabel(ImageIcon ii, int h, int w) {
 //        this.ii = ii;

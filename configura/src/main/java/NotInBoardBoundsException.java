@@ -6,4 +6,3 @@ public class NotInBoardBoundsException extends Exception
 	super(msg);
     }
 }
-
