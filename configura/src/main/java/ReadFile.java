@@ -15,7 +15,7 @@ public class ReadFile
     }
 
     public String[] getReadFurniture() throws IOException, NotInBoardBoundsException {
-	return OpenFile();
+		return OpenFile();
     }
 
     private String[] OpenFile() throws IOException, NotInBoardBoundsException {
