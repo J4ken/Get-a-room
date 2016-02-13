@@ -49,4 +49,18 @@ public class Board
     public SquareType getSquareType(int h, int w) {
         return squares[h][w];
     }
+
+    public void resetBoard(int height, int width) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (y == 0 || x == 0 || y == height - 1 || x == width - 1) {
+                    squares[y][x] = SquareType.WALL;
+                    furnitures[y][x] = null;
+                } else {
+                    squares[y][x] = SquareType.FLOOR;
+                    furnitures[y][x] = null;
+                }
+            }
+        }
+    }
 }
