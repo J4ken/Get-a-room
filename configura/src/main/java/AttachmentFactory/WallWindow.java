@@ -6,7 +6,7 @@ import main.java.Direction;
  * Created by lukas on 2016-02-12.
  */
 public class WallWindow implements Attachment {
-    private int width = 90;
+    private int width = 100;
     private int height = 10;
     private Direction direction = Direction.UNKNOWN;
 
