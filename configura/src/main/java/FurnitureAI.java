@@ -144,7 +144,36 @@ public class FurnitureAI {
                 }
             }
         }
-
+        if(tv > 0) {
+            count = 0;
+            for (int y = 15; y < 24; y++) {
+                if (board.getSquareType(y, 0) != SquareType.WALL) {
+                    break;
+                }
+                count++;
+            }
+        }
+        if(count > 7) {
+            tv--;
+            Furniture tvFur = tvList.get(0);
+            int ySquares = tvFur.getWidth() / 10;
+            int xSquares = tvFur.getHeight() / 10;
+            int yStart = 15;
+            int xStart = 1;
+            boolean mainPlaced = false;
+            for (int y = yStart; y < (yStart + ySquares); y++) {
+                for (int x = xStart; x < (xStart + xSquares); x++) {
+                    tvFur.setDirection(Direction.EAST);
+                    newBoard.setFurnitures(15, 1, tvFur);
+                    if (!mainPlaced) {
+                        mainPlaced = true;
+                        newBoard.setSquares(y, x, SquareType.WALLTVMAIN);
+                    } else {
+                        newBoard.setSquares(y, x, SquareType.WALLTV);
+                    }
+                }
+            }
+        }
         return newBoard;
     }
 
