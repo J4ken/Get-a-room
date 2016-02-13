@@ -15,11 +15,12 @@ import java.awt.image.BufferedImage;
 public class LayoutPanel extends JPanel
 {
     private ImageIcon img;
+    private ImageIcon ii;
 
     public LayoutPanel(){
         ImageHandler.loadImages();
         setBackground(Color.YELLOW);
-        setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        setLayout(null);
         setPreferredSize(new Dimension(10*52,10*52));
     }
 
@@ -35,7 +36,6 @@ public class LayoutPanel extends JPanel
                     addLabel(img, h, w);
                 } else if(board.getSquareType(h, w).equals(SquareType.WINDOWMAIN)){
                     Direction dir = board.getAttachments(h, w).getDirection();
-                    printDir(dir);
                     img = ImageHandler.getWindow(dir);
                     addLabel(img, h, w);
                 } else if(board.getSquareType(h, w).equals(SquareType.DOORMAIN)){
@@ -43,17 +43,19 @@ public class LayoutPanel extends JPanel
                     img = ImageHandler.getDoor(dir);
                     addLabel(img, h, w);
                 } else if(board.getSquareType(h, w).equals(SquareType.BEDMAIN)){
-                    Direction dir = board.getAttachments(h, w).getDirection();
+                    Direction dir = board.getFurniture(h, w).getDirection();
+                    printDir(dir);
                     img = ImageHandler.getBed(dir);
                     addLabel(img, h, w);
                 } else if(board.getSquareType(h, w).equals(SquareType.SOFAMAIN)){
-                    Direction dir = board.getAttachments(h, w).getDirection();
+                    Direction dir = board.getFurniture(h, w).getDirection();
                     img = ImageHandler.getCouch(dir);
                     addLabel(img, h, w);
                 } else if(board.getSquareType(h, w).equals(SquareType.DESKMAIN)){
-                    Direction dir = board.getAttachments(h, w).getDirection();
+                    Direction dir = board.getFurniture(h, w).getDirection();
                     img = ImageHandler.getDesk(dir);
                     addLabel(img, h, w);
+                } else {
                 }
             }
         }
@@ -83,10 +85,18 @@ public class LayoutPanel extends JPanel
         System.out.println("rendered");
     }
 
+//    @Override
+//    public void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        ii.paintIcon(this, g, 0, 0);
+//    }
 
     private void addLabel(ImageIcon ii, int h, int w) {
+//        this.ii = ii;
         JLabel l = new JLabel();
         l.setIcon(ii);
+        l.setLocation(w*10,h*10);
+        l.setSize(ii.getIconWidth(),ii.getIconHeight());
         add(l);
     }
 }
