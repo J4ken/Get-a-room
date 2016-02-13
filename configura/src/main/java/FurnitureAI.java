@@ -89,6 +89,60 @@ public class FurnitureAI {
             //newBoard = doDeskModule(board);
         }
 
+        boolean containsTV = false;
+        for(int i = 0; i < furnitureList.size(); i++) {
+            if(furnitureList.get(i).getClass().equals(WallTV.class)) {
+                containsTV = true;
+            }
+        }
+        if(containsTV) {
+            newBoard = doTVModule(board);
+        }
+
+
+
+        return newBoard;
+    }
+
+    private Board doTVModule(Board board) {
+        Board newBoard = board;
+
+        int tv = 0;
+        List<Furniture> tvList = new ArrayList<>();
+        for(int i = 0; i < furnitureList.size(); i++) {
+            if(furnitureList.get(i).getClass().equals(WallTV.class)) {
+                tv++;
+                tvList.add(furnitureList.get(i));
+            }
+        }
+        int count = 0;
+        for(int x = 15; x < 24; x++) {
+            if(board.getSquareType(0, x) != SquareType.WALL) {
+                break;
+            }
+            count++;
+        }
+        if(count > 7) {
+            tv--;
+            Furniture tvFur = tvList.get(0);
+            int ySquares = tvFur.getWidth() / 10;
+            int xSquares = tvFur.getHeight() / 10;
+            int yStart = 1;
+            int xStart = 15;
+            boolean mainPlaced = false;
+            for (int y = yStart; y < (yStart + ySquares); y++) {
+                for (int x = xStart; x < (xStart + xSquares); x++) {
+                    tvFur.setDirection(Direction.SOUTH);
+                    newBoard.setFurnitures(1, 15, tvFur);
+                    if (!mainPlaced) {
+                        mainPlaced = true;
+                        newBoard.setSquares(y, x, SquareType.WALLTVMAIN);
+                    } else {
+                        newBoard.setSquares(y, x, SquareType.WALLTV);
+                    }
+                }
+            }
+        }
 
         return newBoard;
     }
