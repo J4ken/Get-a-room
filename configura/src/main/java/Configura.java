@@ -20,7 +20,7 @@ public class Configura
 	frame.setVisible(true);
 
 	System.out.println("hej");
-
+    }
 		//Board board = new Board(10, 10);
 /*
 
@@ -36,5 +36,4 @@ public class Configura
 	LayoutPanel ngt = new LayoutPanel();
 	ngt.generateOutput(board);
 	*/
-    }
 }

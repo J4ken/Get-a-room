@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.*;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -21,7 +22,7 @@ public class MainFrame extends JFrame
         super("get-a-room");
     }
 
-    public void setUpFrame(){
+    public void setUpFrame() throws IOException, NotInBoardBoundsException {
         board = new Board(Board.ROOM_HEIGHT, Board.ROOM_WIDTH);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -71,7 +72,13 @@ public class MainFrame extends JFrame
         generateMI.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 System.out.println("Generating room");
-                lPanel.renderRoom(board);
+                try {
+                    lPanel.renderRoom(board);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (NotInBoardBoundsException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 

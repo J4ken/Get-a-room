@@ -1,9 +1,9 @@
-Dörr	100,500,190,500
-Fönster	100,0,200,0
-Fönster	300,0,400,0
+Dörr	0,400,0,490
+Fönster	200,0,300,0
+Fönster	0,250,0,350
 Säng	90x200
 Säng	90x200
-Matta   150x200
-Matta   150x200
+Matta	150x200
+Matta	150x200
 Skrivbord	70x150
 Skrivbordsstol	60x60

@@ -29,10 +29,6 @@ public class FurnitureInventory
         AttachmentFactory attachmentFactory = new AttachmentFactory();
         FurnitureFactory furnitureFactory = new FurnitureFactory();
 
-
-
-
-
         for(int i=0; i<buildFurnitures.length;i++) {
             if(i<3) {
                 String[] temp = buildFurnitures[i].split("	");
@@ -44,6 +40,7 @@ public class FurnitureInventory
                 }
                 else{
                     for(String c: temp) {
+                        System.out.println("NEJ");
                         System.out.println(c); //bara en nice kontroll. Ändra till throw sen kanske
                     }
                 }
