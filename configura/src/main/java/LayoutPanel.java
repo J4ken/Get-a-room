@@ -44,7 +44,7 @@ public class LayoutPanel extends JPanel
     }
 
     private void renderAttachments(Board board){
-        System.out.println("hej");
+        System.out.println("renderAttachments");
         for(int h = 0; h < board.ROOM_HEIGHT; h++){
             for(int w = 0; w < board.ROOM_WIDTH; w++){
                 SquareType s = board.getSquareType(h, w);
@@ -67,7 +67,7 @@ public class LayoutPanel extends JPanel
     public void renderRoom(Board board){
         System.out.println("render room");
         FurnitureAI ai = new FurnitureAI();
-        ai.decorateRoom(board);
+        board = ai.decorateRoom(board);
         renderFloor(board);
         renderAttachments(board);
         System.out.println("rendered");
@@ -100,7 +100,7 @@ public class LayoutPanel extends JPanel
     private void addLabel(ImageIcon ii, int h, int w) {
         JLabel l = new JLabel();
         l.setIcon(ii);
-        l.setLocation(w*12,h*12);
+        l.setLocation(w*10,h*10);
         add(l);
     }
 }

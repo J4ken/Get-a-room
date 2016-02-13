@@ -14,7 +14,7 @@ public class ImageHandler
 
     private static ImageIcon img_floor;
     private static ImageIcon img_wall;
-    private static ImageIcon img_bed, img_door, img_window;
+    private static ImageIcon img_bed, img_door, img_window, img_null;
 
     public static void loadImages() {
 
