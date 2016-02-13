@@ -55,10 +55,12 @@ public class FurnitureAI {
         List<Furniture> bedList = new ArrayList<>();
         for(int i = 0; i < furnitureList.size(); i++) {
             if(furnitureList.get(i).getClass().equals(Bed.class)) {
+                System.out.println("one Bed");
                 beds++;
                 bedList.add(furnitureList.get(i));
             }
         }
+        System.out.println(bedList.size());
 
         // find corner furthest away from the door/windows;
         // Start top left
@@ -150,21 +152,24 @@ public class FurnitureAI {
                 }
             }
 
-        } if(beds > 1) {
+        }
+        if(beds > 1) {
             // 2 beds
+            System.out.println("twobeds");
+            System.out.println(secondBest);
             Furniture bedTwo = bedList.get(1);
             if(secondBest == 0) {
                 //TopLeft
-                int ySquares = bed.getHeight() / 10;
-                int xSquares = bed.getWidth() / 10;
+                int ySquares = bedTwo.getHeight() / 10;
+                int xSquares = bedTwo.getWidth() / 10;
                 int yStart = 1;
                 int xStart = 1;
                 Boolean mainPlaced = false;
                 for(int y = yStart; y < (yStart + ySquares); y++) {
                     for (int x = xStart; x < (xStart + xSquares); x++) {
                         // Set bed direction to south
-                        bed.setDirection(Direction.SOUTH);
-                        board.setFurnitures(y, x, bed);
+                        bedTwo.setDirection(Direction.SOUTH);
+                        board.setFurnitures(y, x, bedTwo);
                         if (!mainPlaced) {
                             mainPlaced = true;
                             newBoard.setSquares(y, x, SquareType.BEDMAIN);
@@ -174,16 +179,16 @@ public class FurnitureAI {
                 }
             } else if (secondBest == 1) {
                 //TopRight
-                int ySquares = bed.getWidth() / 10;
-                int xSquares = bed.getHeight() / 10;
+                int ySquares = bedTwo.getWidth() / 10;
+                int xSquares = bedTwo.getHeight() / 10;
                 int yStart = 1;
                 int xStart = Board.ROOM_WIDTH - 1 - xSquares;
                 Boolean mainPlaced = false;
                 for(int y = yStart; y < (yStart + ySquares); y++) {
                     for (int x = xStart; x < (xStart + xSquares); x++) {
                         // Set bed direction to west
-                        bed.setDirection(Direction.WEST);
-                        board.setFurnitures(y, x, bed);
+                        bedTwo.setDirection(Direction.WEST);
+                        board.setFurnitures(y, x, bedTwo);
                         if (!mainPlaced) {
                             mainPlaced = true;
                             newBoard.setSquares(y, x, SquareType.BEDMAIN);
@@ -193,16 +198,16 @@ public class FurnitureAI {
                 }
             } else if (secondBest == 2) {
                 //BottomLeft
-                int ySquares = bed.getWidth() / 10;
-                int xSquares = bed.getHeight() / 10;
+                int ySquares = bedTwo.getWidth() / 10;
+                int xSquares = bedTwo.getHeight() / 10;
                 int yStart = Board.ROOM_HEIGHT - 1 - ySquares;
                 int xStart = 1;
                 Boolean mainPlaced = false;
                 for(int y = yStart; y < (yStart + ySquares); y++) {
                     for (int x = xStart; x < (xStart + xSquares); x++) {
                         // Set bed direction to eaST
-                        bed.setDirection(Direction.EAST);
-                        board.setFurnitures(y, x, bed);
+                        bedTwo.setDirection(Direction.EAST);
+                        board.setFurnitures(y, x, bedTwo);
                         if (!mainPlaced) {
                             mainPlaced = true;
                             newBoard.setSquares(y, x, SquareType.BEDMAIN);
@@ -212,16 +217,16 @@ public class FurnitureAI {
                 }
             } else {
                 //BottomRight
-                int ySquares = bed.getHeight() / 10;
-                int xSquares = bed.getWidth() / 10;
+                int ySquares = bedTwo.getHeight() / 10;
+                int xSquares = bedTwo.getWidth() / 10;
                 int yStart = Board.ROOM_HEIGHT - 1 - ySquares;
                 int xStart = Board.ROOM_WIDTH - 1 - xSquares;
                 Boolean mainPlaced = false;
                 for (int y = yStart; y < (yStart + ySquares); y++) {
                     for (int x = xStart; x < (xStart + xSquares); x++) {
                         // Set bed direction to eaST
-                        bed.setDirection(Direction.NORTH);
-                        board.setFurnitures(y, x, bed);
+                        bedTwo.setDirection(Direction.NORTH);
+                        board.setFurnitures(y, x, bedTwo);
                         if (!mainPlaced) {
                             mainPlaced = true;
                             newBoard.setSquares(y, x, SquareType.BEDMAIN);
@@ -259,9 +264,8 @@ public class FurnitureAI {
     private int decideSecondBest(int topLeft, int topRight, int bottomLeft, int bottomRight) {
         int bestValue = 0;
         int bestCorner = 0;
-        int secondBestCorner = 0;
+        int secondBestCorner = 3;
         if(topLeft > bestValue) {
-            secondBestCorner = bestCorner;
             bestCorner = 0;
             bestValue = topLeft;
         }
@@ -428,9 +432,9 @@ public class FurnitureAI {
         FurnitureFactory furnitureFactory = new FurnitureFactory();
 
         Furniture kuk1 = furnitureFactory.createFurniture("säNg");
-
+        Furniture kuk2 = furnitureFactory.createFurniture("säNg");
         newFurnitureList.add(kuk1);
-
+        newFurnitureList.add(kuk2);
         return newFurnitureList;
     }
 

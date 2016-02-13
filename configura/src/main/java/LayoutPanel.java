@@ -55,6 +55,10 @@ public class LayoutPanel extends JPanel
                     Direction dir = board.getFurniture(h, w).getDirection();
                     img = ImageHandler.getDesk(dir);
                     addLabel(img, h, w);
+                }else if(board.getSquareType(h, w).equals(SquareType.MATMAIN)){
+                    Direction dir = board.getFurniture(h, w).getDirection();
+                    img = ImageHandler.getCarpet(dir);
+                    addLabel(img, h, w);
                 } else {
                 }
             }

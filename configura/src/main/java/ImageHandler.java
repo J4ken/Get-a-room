@@ -19,6 +19,7 @@ public class ImageHandler
     private static ImageIcon img_door_N, img_door_E, img_door_S, img_door_W;
     private static ImageIcon img_couch_N, img_couch_E, img_couch_S, img_couch_W;
     private static ImageIcon img_desk_N, img_desk_E, img_desk_S, img_desk_W;
+    private static ImageIcon img_carpet_N, img_carpet_E, img_carpet_S, img_carpet_W;
 
 
     public static void loadImages() {
@@ -172,6 +173,33 @@ public class ImageHandler
 	} catch (IOException e) {
 	    System.out.println(e);
 	}
+	/**
+	 * CARPET
+	 */
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Carpet\\desk_N.png"));
+	    img_carpet_N = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Carpet\\desk_E.png"));
+	    img_carpet_E = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Carpet\\desk_S.png"));
+	    img_carpet_S = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Carpet\\desk_W.png"));
+	    img_carpet_W = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
     }
 
 
@@ -258,6 +286,21 @@ public class ImageHandler
 	    return img_desk_W;
 	} else {
     	System.out.println("couch NULL");
+	    return null;
+	}
+    }
+
+    public static ImageIcon getCarpet(Direction dir) {
+	if(dir.equals(Direction.NORTH)){
+	    return img_carpet_N;
+	} else if(dir.equals(Direction.EAST)){
+	    return img_carpet_E;
+	} else if(dir.equals(Direction.SOUTH)){
+	    return img_carpet_S;
+	} else if(dir.equals(Direction.WEST)){
+	    return img_carpet_W;
+	} else {
+    	System.out.println("capet NULL");
 	    return null;
 	}
     }
