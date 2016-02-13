@@ -70,8 +70,27 @@ public class FurnitureAI {
                 matList.add(furnitureList.get(i));
             }
         }
-
-        if(mats > 0) {
+        if(mats == 1) {
+            Furniture mat = matList.get(0);
+            int ySquares = mat.getWidth() / 10;
+            int xSquares = mat.getHeight() / 10;
+            int yStart = 15;
+            int xStart = 17;
+            // 250 - 100
+            boolean mainPlaced = false;
+            for(int y = yStart; y < (yStart + ySquares); y++) {
+                for (int x = xStart; x < (xStart + xSquares); x++) {
+                    mat.setDirection(Direction.WEST);
+                    newBoard.setFurnitures(15, 17, mat);
+                    if(!mainPlaced) {
+                        mainPlaced = true;
+                        newBoard.setSquares(y, x, SquareType.MATMAIN);
+                    } else {
+                        newBoard.setSquares(y, x, SquareType.MAT);
+                    }
+                }
+            }
+        } else if(mats == 2) {
             Furniture mat = matList.get(0);
             int ySquares = mat.getWidth() / 10;
             int xSquares = mat.getHeight() / 10;
@@ -92,7 +111,7 @@ public class FurnitureAI {
                 }
             }
         }
-        if(mats > 1) {
+        if(mats == 2) {
             Furniture mat2 = matList.get(1);
             int ySquares = mat2.getWidth() / 10;
             int xSquares = mat2.getHeight() / 10;
