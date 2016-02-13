@@ -150,7 +150,7 @@ public class FurnitureAI {
                 }
             }
 
-        } if(beds > 1) {
+        } if(beds > 0) {
             // 2 beds
             Furniture bedTwo = bedList.get(1);
             if(secondBest == 0) {
