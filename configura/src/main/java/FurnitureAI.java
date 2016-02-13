@@ -6,6 +6,7 @@ import main.java.AttachmentFactory.Door;
 import main.java.FurnitureFactory.Bed;
 import main.java.FurnitureFactory.Furniture;
 import main.java.FurnitureFactory.FurnitureFactory;
+import main.java.FurnitureFactory.Mat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,43 @@ public class FurnitureAI {
         }
         if(containsBed) {
             newBoard = doBedModule(board);
+        }
+        boolean containsMat = false;
+        for(int i = 0; i < furnitureList.size(); i++) {
+            if(furnitureList.get(i).getClass().equals(Mat.class)) {
+                containsMat = true;
+            }
+        }
+        if(containsMat) {
+            newBoard = doMatModule(board);
+        }
+
+
+        return newBoard;
+    }
+
+    private Board doMatModule(Board board) {
+        Board newBoard = board;
+
+        int mats = 0;
+        List<Furniture> matList = new ArrayList<>();
+        for(int i = 0; i < furnitureList.size(); i++) {
+            if(furnitureList.get(i).getClass().equals(Mat.class)) {
+                mats++;
+                matList.add(furnitureList.get(i));
+            }
+        }
+
+        if(mats > 0) {
+            // 250 - 100
+            Furniture mat = matList.get(0);
+            mat.setDirection(Direction.SOUTH);
+            newBoard.setFurnitures(100, 150, mat);
+        }
+        if(mats > 1) {
+            Furniture mat2 = matList.get(1);
+            mat2.setDirection(Direction.SOUTH);
+            newBoard.setFurnitures(300, 150, mat2);
         }
 
         return newBoard;
@@ -150,7 +188,8 @@ public class FurnitureAI {
                 }
             }
 
-        } if(beds > 0) {
+        }
+        if(beds > 1) {
             // 2 beds
             Furniture bedTwo = bedList.get(1);
             if(secondBest == 0) {
@@ -259,9 +298,8 @@ public class FurnitureAI {
     private int decideSecondBest(int topLeft, int topRight, int bottomLeft, int bottomRight) {
         int bestValue = 0;
         int bestCorner = 0;
-        int secondBestCorner = 0;
+        int secondBestCorner = 3;
         if(topLeft > bestValue) {
-            secondBestCorner = bestCorner;
             bestCorner = 0;
             bestValue = topLeft;
         }
