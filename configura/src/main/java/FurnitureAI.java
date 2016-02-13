@@ -7,6 +7,7 @@ import main.java.FurnitureFactory.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -386,8 +387,6 @@ public class FurnitureAI {
         int bottomRight = bottomRightPrio(board);
         int bestCorner = decideCorner(topLeft, topRight, bottomLeft, bottomRight);
         int secondBest = decideSecondBest(topLeft,topRight, bottomLeft, bottomRight);
-        
-
 
         // 1 beds
         // bestCorner :: 0 = topleft, 1 = topright, 2 = bottomleft, 3 = bottomright
@@ -579,26 +578,21 @@ public class FurnitureAI {
     }
 
     private int decideSecondBest(int topLeft, int topRight, int bottomLeft, int bottomRight) {
-        int bestValue = 0;
-        int bestCorner = 0;
-        int secondBestCorner = 3;
-        if(topLeft > bestValue) {
-            bestCorner = 0;
-            bestValue = topLeft;
+        int secondBestCorner = 0;
+        int[] temp = {topLeft, topRight, bottomLeft, bottomRight};
+        Arrays.sort(temp);
+
+        int tempo = temp[2];
+        if (tempo == topLeft) {
+            secondBestCorner = 0;
+        } else if(tempo == topRight) {
+            secondBestCorner = 1;
+        } else if(tempo == bottomLeft) {
+            secondBestCorner = 2;
+        } else {
+            secondBestCorner = 3;
         }
-        if(topRight > bestValue) {
-            secondBestCorner = bestCorner;
-            bestCorner = 1;
-            bestValue = topRight;
-        }
-        if(bottomLeft > bestValue) {
-            secondBestCorner = bestCorner;
-            bestCorner = 2;
-            bestValue = bottomLeft;
-        }
-        if(bottomRight > bestValue) {
-            secondBestCorner = bestCorner;
-        }
+
         return secondBestCorner;
     }
 

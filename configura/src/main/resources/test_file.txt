@@ -1,4 +1,4 @@
-Dörr	150,0,240,0
+Dörr	50,0,140,0
 Fönster	500,250,500,350
 Fönster	500,50,500,150
 Säng	90x200
@@ -9,3 +9,4 @@ Skrivbord	70x150
 Skrivbordsstol	60x60
 Skrivbord	70x150
 Skrivbordsstol	60x60
+Vägg-tv	10x80
