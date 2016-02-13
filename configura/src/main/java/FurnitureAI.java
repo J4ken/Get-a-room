@@ -186,8 +186,8 @@ public class FurnitureAI {
                     // There is space, put a goddamn fucking tablefuck here.
                     if(true) {
                         Furniture deskFur = deskList.get(deskList.size() - 1);
-                        int ySquares = deskFur.getHeight() / 10;
-                        int xSquares = deskFur.getWidth() / 10;
+                        int ySquares = deskFur.getWidth() / 10;
+                        int xSquares = deskFur.getHeight() / 10;
                         int yStart = 1;
                         int xStart = 15;
                         boolean mainPlaced = false;
@@ -207,8 +207,8 @@ public class FurnitureAI {
                     // Put a goddamn chairfuck next to it
                     if(true) {
                         Furniture chairFuck = deskChairList.get(deskChairList.size() - 1);
-                        int ySquares = chairFuck.getHeight() / 10;
-                        int xSquares = chairFuck.getWidth() / 10;
+                        int ySquares = chairFuck.getWidth() / 10;
+                        int xSquares = chairFuck.getHeight() / 10;
                         int yStart = 9;
                         int xStart = 19;
                         boolean mainPlaced = false;
