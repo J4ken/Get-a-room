@@ -137,7 +137,7 @@ public class FurnitureAI {
                         for (int y = yStart; y < (yStart + ySquares); y++) {
                             for (int x = xStart; x < (xStart + xSquares); x++) {
                                 deskFur.setDirection(Direction.EAST);
-                                board.setFurnitures(21, 1, deskFur);
+                                newBoard.setFurnitures(21, 1, deskFur);
                                 if (!mainPlaced) {
                                     mainPlaced = true;
                                     newBoard.setSquares(y, x, SquareType.DESKMAIN);
@@ -158,7 +158,7 @@ public class FurnitureAI {
                         for (int y = yStart; y < (yStart + ySquares); y++) {
                             for (int x = xStart; x < (xStart + xSquares); x++) {
                                 chairFuck.setDirection(Direction.WEST);
-                                board.setFurnitures(25, 9, chairFuck);
+                                newBoard.setFurnitures(25, 9, chairFuck);
                                 if (!mainPlaced) {
                                     mainPlaced = true;
                                     newBoard.setSquares(y, x, SquareType.DESKCHAIRMAIN);
@@ -172,7 +172,7 @@ public class FurnitureAI {
                 }
             }
 
-            if(board.getSquareType(1, 30).equals(SquareType.BEDMAIN) && workstations > 0) {
+            if(board.getSquareType(1, 31).equals(SquareType.BEDMAIN) && workstations > 0) {
                 System.out.println("SEcond workstation");
                 //Bed in topleft, check if wall is free, if it is, put workstation there.
                 int spaceLeft = 0;
@@ -190,12 +190,12 @@ public class FurnitureAI {
                         int ySquares = deskFur.getWidth() / 10;
                         int xSquares = deskFur.getHeight() / 10;
                         int yStart = 1;
-                        int xStart = 15;
+                        int xStart = 16;
                         boolean mainPlaced = false;
                         for (int y = yStart; y < (yStart + ySquares); y++) {
                             for (int x = xStart; x < (xStart + xSquares); x++) {
                                 deskFur.setDirection(Direction.SOUTH);
-                                board.setFurnitures(1, 15, deskFur);
+                                newBoard.setFurnitures(1, 16, deskFur);
                                 if (!mainPlaced) {
                                     mainPlaced = true;
                                     newBoard.setSquares(y, x, SquareType.DESKMAIN);
@@ -211,12 +211,12 @@ public class FurnitureAI {
                         int ySquares = chairFuck.getWidth() / 10;
                         int xSquares = chairFuck.getHeight() / 10;
                         int yStart = 9;
-                        int xStart = 19;
+                        int xStart = 21;
                         boolean mainPlaced = false;
                         for (int y = yStart; y < (yStart + ySquares); y++) {
                             for (int x = xStart; x < (xStart + xSquares); x++) {
                                 chairFuck.setDirection(Direction.NORTH);
-                                board.setFurnitures(9, 19, chairFuck);
+                                newBoard.setFurnitures(9, 21, chairFuck);
                                 if (!mainPlaced) {
                                     mainPlaced = true;
                                     newBoard.setSquares(y, x, SquareType.DESKCHAIRMAIN);
@@ -249,6 +249,26 @@ public class FurnitureAI {
             Furniture mat = matList.get(0);
             int ySquares = mat.getWidth() / 10;
             int xSquares = mat.getHeight() / 10;
+            int yStart = 17;
+            int xStart = 17;
+            // 250 - 100
+            boolean mainPlaced = false;
+            for(int y = yStart; y < (yStart + ySquares); y++) {
+                for (int x = xStart; x < (xStart + xSquares); x++) {
+                    mat.setDirection(Direction.WEST);
+                    newBoard.setFurnitures(17, 17, mat);
+                    if(!mainPlaced) {
+                        mainPlaced = true;
+                        newBoard.setSquares(y, x, SquareType.MATMAIN);
+                    } else {
+                        newBoard.setSquares(y, x, SquareType.MAT);
+                    }
+                }
+            }
+        } else if(mats == 2) {
+            Furniture mat = matList.get(1);
+            int ySquares = mat.getWidth() / 10;
+            int xSquares = mat.getHeight() / 10;
             int yStart = 15;
             int xStart = 17;
             // 250 - 100
@@ -265,38 +285,18 @@ public class FurnitureAI {
                     }
                 }
             }
-        } else if(mats == 2) {
-            Furniture mat = matList.get(0);
-            int ySquares = mat.getWidth() / 10;
-            int xSquares = mat.getHeight() / 10;
-            int yStart = 6;
-            int xStart = 17;
-            // 250 - 100
-            boolean mainPlaced = false;
-            for(int y = yStart; y < (yStart + ySquares); y++) {
-                for (int x = xStart; x < (xStart + xSquares); x++) {
-                    mat.setDirection(Direction.WEST);
-                    newBoard.setFurnitures(6, 17, mat);
-                    if(!mainPlaced) {
-                        mainPlaced = true;
-                        newBoard.setSquares(y, x, SquareType.MATMAIN);
-                    } else {
-                        newBoard.setSquares(y, x, SquareType.MAT);
-                    }
-                }
-            }
         }
         if(mats == 2) {
             Furniture mat2 = matList.get(1);
             int ySquares = mat2.getWidth() / 10;
             int xSquares = mat2.getHeight() / 10;
-            int yStart = 27;
+            int yStart = 35;
             int xStart = 17;
             boolean mainPlaced = false;
             for(int y = yStart; y < (yStart + ySquares); y++) {
                 for (int x = xStart; x < (xStart + xSquares); x++) {
                     mat2.setDirection(Direction.WEST);
-                    newBoard.setFurnitures(27, 17, mat2);
+                    newBoard.setFurnitures(35, 17, mat2);
                     if(!mainPlaced) {
                         mainPlaced = true;
                         newBoard.setSquares(y, x, SquareType.MATMAIN);
