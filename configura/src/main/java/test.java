@@ -40,8 +40,12 @@ public class test {
         furnitureList.add(kuk3);
         furnitureList.add(kuk4);
 
+        boolean containsDoor = false;
         for(int i = 0; i < attachmentList.size(); i++) {
             Attachment object = attachmentList.get(i);
+            if(object.getClass().equals(Door.class)) {
+                containsDoor = true;
+            }
             System.out.println(object.getClass() + " " + object.getXStart() + " " + object.getYStart() + " " + object.getXEnd() + " " + object.getYEnd() + " " + object.getDirection());
         }
         System.out.println("\n");
@@ -51,6 +55,7 @@ public class test {
         }
 
         System.out.println(attachmentList.get(0).getClass().equals(Door.class));
+        System.out.println(containsDoor);
 
 
     }

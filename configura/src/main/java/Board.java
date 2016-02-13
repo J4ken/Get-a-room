@@ -53,23 +53,23 @@ public class Board
         return squares[y][x];
     }
 
-    public void setSquares(int x, int y, SquareType squareType) {
+    public void setSquares(int y, int x, SquareType squareType) {
         this.squares[y][x] = squareType;
     }
 
-    public void setFurnitures(int x, int y, Furniture furniture) {
+    public void setFurnitures(int y, int x, Furniture furniture) {
         this.furnitures[y][x] = furniture;
     }
 
-    public void setAttachments(int x, int y, Attachment attachment) {
+    public void setAttachments(int y, int x, Attachment attachment) {
         this.attachments[y][x] = attachment;
     }
 
-    public Furniture getFurniture(int x, int y) {
+    public Furniture getFurniture(int y, int x) {
         return furnitures[y][x];
     }
 
-    public Attachment getAttachments(int x, int y) {
+    public Attachment getAttachments(int y, int x) {
         return attachments[y][x];
     }
 

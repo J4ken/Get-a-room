@@ -3,6 +3,7 @@ package main.java;
 import main.java.AttachmentFactory.Attachment;
 import main.java.AttachmentFactory.AttachmentFactory;
 import main.java.AttachmentFactory.Door;
+import main.java.FurnitureFactory.Bed;
 import main.java.FurnitureFactory.Furniture;
 
 import java.util.ArrayList;
@@ -20,16 +21,36 @@ public class FurnitureAI {
 
     }
 
-    public void decorateRoom(Board board) {
+    public Board decorateRoom(Board board) {
+        Board newBoard = board;
         attachmentList = collectAttachmentsFromWarehouse();
         furnitureList = collectFurnitureFromWarehouse();
-        this.board = board;
+        newBoard = placeAttachments(newBoard);
 
+        //placeFurnitures();
 
+        return newBoard;
+    }
+
+    private void placeFurnitures() {
+        // Check if there is a bed
+        boolean containsBed = false;
+        for(int i = 0; i < furnitureList.size(); i++) {
+            if(furnitureList.get(i).getClass().equals(Bed.class)) {
+                containsBed = true;
+            }
+        }
+        if(containsBed) {
+            doBedModule();
+        }
+    }
+
+    private void doBedModule() {
     }
 
 
-    private void placeAttachments() {
+    private Board placeAttachments(Board board) {
+        Board newBoard = board;
         for(int i = 0; i < attachmentList.size(); i++) {
             int xSquares;
             int ySquares;
@@ -54,19 +75,19 @@ public class FurnitureAI {
                 Boolean mainPlaced = false;
                 for (int x = xStart; x > (xStart - xSquares); x--) {
                     for(int y = yStart; y > (yStart - ySquares); y--) {
-                        board.setAttachments(x, y, obj);
+                        board.setAttachments(y, x, obj);
                         if (!mainPlaced) {
                             mainPlaced = true;
                             if(obj.getClass().equals(Door.class)) {
-                                board.setSquares(x, y, SquareType.DOORMAIN);
+                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
                             } else {
-                                board.setSquares(x, y, SquareType.WINDOWMAIN);
+                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
                             }
                         } else {
                             if(obj.getClass().equals(Door.class)) {
-                                board.setSquares(x, y, SquareType.DOOR);
+                                newBoard.setSquares(y, x, SquareType.DOOR);
                             } else {
-                                board.setSquares(x, y, SquareType.WINDOW);
+                                newBoard.setSquares(y, x, SquareType.WINDOW);
                             }
                         }
                     }
@@ -75,19 +96,19 @@ public class FurnitureAI {
                 Boolean mainPlaced = false;
                 for (int x = xStart; x < (xStart + xSquares); x++) {
                     for(int y = yStart; y < (yStart + ySquares); y++) {
-                        board.setAttachments(x, y, obj);
+                        board.setAttachments(y, x, obj);
                         if (!mainPlaced) {
                             mainPlaced = true;
                             if(obj.getClass().equals(Door.class)) {
-                                board.setSquares(x, y, SquareType.DOORMAIN);
+                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
                             } else {
-                                board.setSquares(x, y, SquareType.WINDOWMAIN);
+                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
                             }
                         } else {
                             if(obj.getClass().equals(Door.class)) {
-                                board.setSquares(x, y, SquareType.DOOR);
+                                newBoard.setSquares(y, x, SquareType.DOOR);
                             } else {
-                                board.setSquares(x, y, SquareType.WINDOW);
+                                newBoard.setSquares(y, x, SquareType.WINDOW);
                             }
                         }
                     }
@@ -96,19 +117,19 @@ public class FurnitureAI {
                 Boolean mainPlaced = false;
                 for (int x = xStart; x > (xStart - xSquares); x--) {
                     for(int y = yStart; y < (yStart + ySquares); y++) {
-                        board.setAttachments(x, y, obj);
+                        board.setAttachments(y, x, obj);
                         if (!mainPlaced) {
                             mainPlaced = true;
                             if(obj.getClass().equals(Door.class)) {
-                                board.setSquares(x, y, SquareType.DOORMAIN);
+                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
                             } else {
-                                board.setSquares(x, y, SquareType.WINDOWMAIN);
+                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
                             }
                         } else {
                             if(obj.getClass().equals(Door.class)) {
-                                board.setSquares(x, y, SquareType.DOOR);
+                                newBoard.setSquares(y, x, SquareType.DOOR);
                             } else {
-                                board.setSquares(x, y, SquareType.WINDOW);
+                                newBoard.setSquares(y, x, SquareType.WINDOW);
                             }
                         }
                     }
@@ -117,25 +138,26 @@ public class FurnitureAI {
                 Boolean mainPlaced = false;
                 for (int x = xStart; x < (xStart + xSquares); x++) {
                     for(int y = yStart; y > (yStart - ySquares); y--) {
-                        board.setAttachments(x, y, obj);
+                        board.setAttachments(y, x, obj);
                         if (!mainPlaced) {
                             mainPlaced = true;
                             if(obj.getClass().equals(Door.class)) {
-                                board.setSquares(x, y, SquareType.DOORMAIN);
+                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
                             } else {
-                                board.setSquares(x, y, SquareType.WINDOWMAIN);
+                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
                             }
                         } else {
                             if(obj.getClass().equals(Door.class)) {
-                                board.setSquares(x, y, SquareType.DOOR);
+                                newBoard.setSquares(y, x, SquareType.DOOR);
                             } else {
-                                board.setSquares(x, y, SquareType.WINDOW);
+                                newBoard.setSquares(y, x, SquareType.WINDOW);
                             }
                         }
                     }
                 }
             }
         }
+        return newBoard;
     }
 
     private List<Furniture> collectFurnitureFromWarehouse() {
