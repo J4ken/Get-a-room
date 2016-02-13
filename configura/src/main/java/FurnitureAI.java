@@ -124,6 +124,7 @@ public class FurnitureAI {
                         break;
                     }
                 }
+                
                 if(spaceLeft > 14) {
                     // There is space, put a goddamn fucking tablefuck here.
                     if(true) {
