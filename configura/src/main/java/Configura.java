@@ -1,9 +1,7 @@
 package main.java;
 
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javax.swing.*;
 
 /**
  * Created by Jacob on 2/12/2016.
@@ -11,18 +9,12 @@ import java.nio.file.Paths;
 public class Configura
 {
     public static void main(String[] args){
-	System.out.println("hej");
-	ReadFile file = new ReadFile("/home/sarsv839/Get-a-room/configura/src/main/resources/test_file.txt");
-	try {
-	    String[] furniture = file.OpenFile();
-	    for(int i=0; i<furniture.length; i++)
-	    System.out.println(furniture[i]);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	//Board board = new Board(10, 10);
-
-
+	System.out.println("wabadabadubdub");
+	ImageHandler.loadImages();
+	MainFrame frame = new MainFrame();
+	frame.setUpFrame();
+  	frame.createMenuBar();
+	frame.pack();
+	frame.setVisible(true);
     }
-
 }
