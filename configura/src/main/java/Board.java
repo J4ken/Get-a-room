@@ -46,4 +46,7 @@ public class Board
         }
     }
 
+    public SquareType getSquareType(int h, int w) {
+        return squares[h][w];
+    }
 }
