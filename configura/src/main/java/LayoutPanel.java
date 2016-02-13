@@ -14,50 +14,61 @@ import java.awt.image.BufferedImage;
  */
 public class LayoutPanel extends JPanel
 {
-    private ImageIcon floor;
-    private ImageIcon wall;
-
-    private ImageIcon bed;
-    private ImageIcon window;
-    private ImageIcon door;
+    private ImageIcon img;
 
     public LayoutPanel(){
         ImageHandler.loadImages();
-        getImages();
-        setBackground(Color.BLACK);
+        setBackground(Color.YELLOW);
         setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         setPreferredSize(new Dimension(10*52,10*52));
     }
 
-    private void renderFloor(Board board){
-        board.resetBoard(board.ROOM_HEIGHT, board.ROOM_WIDTH);
+    private void populateRoom(Board board){
         for(int h = 0; h < board.ROOM_HEIGHT; h++){
             for(int w = 0; w < board.ROOM_WIDTH; w++){
                 SquareType s = board.getSquareType(h, w);
                 if(s == SquareType.FLOOR){
-                    addLabel(floor, h, w);
+                    img = ImageHandler.getFloor();
+                    addLabel(img, h, w);
                 } else if(s == SquareType.WALL){
-                    addLabel(wall, h, w);
+                    img = ImageHandler.getWall();
+                    addLabel(img, h, w);
+                } else if(board.getSquareType(h, w).equals(SquareType.WINDOWMAIN)){
+                    Direction dir = board.getAttachments(h, w).getDirection();
+                    printDir(dir);
+                    img = ImageHandler.getWindow(dir);
+                    addLabel(img, h, w);
+                } else if(board.getSquareType(h, w).equals(SquareType.DOORMAIN)){
+                    Direction dir = board.getAttachments(h, w).getDirection();
+                    img = ImageHandler.getDoor(dir);
+                    addLabel(img, h, w);
+                } else if(board.getSquareType(h, w).equals(SquareType.BEDMAIN)){
+                    Direction dir = board.getAttachments(h, w).getDirection();
+                    img = ImageHandler.getBed(dir);
+                    addLabel(img, h, w);
+                } else if(board.getSquareType(h, w).equals(SquareType.SOFAMAIN)){
+                    Direction dir = board.getAttachments(h, w).getDirection();
+                    img = ImageHandler.getCouch(dir);
+                    addLabel(img, h, w);
+                } else if(board.getSquareType(h, w).equals(SquareType.DESKMAIN)){
+                    Direction dir = board.getAttachments(h, w).getDirection();
+                    img = ImageHandler.getDesk(dir);
+                    addLabel(img, h, w);
                 }
             }
         }
     }
 
-    private void renderAttachments(Board board){
-        System.out.println("renderAttachments");
-        for(int h = 0; h < board.ROOM_HEIGHT; h++){
-            for(int w = 0; w < board.ROOM_WIDTH; w++){
-                SquareType s = board.getSquareType(h, w);
-                if(s == SquareType.WINDOWMAIN){
-                    System.out.println("WindowMain");
-                    Direction dir = board.getAttachments(w, h).getDirection();
-                    addAttachLabel(window, dir, h, w);
-                } else if(s == SquareType.DOORMAIN){
-                    System.out.println("DoorMain");
-                    Direction dir = board.getAttachments(w, h).getDirection();
-                    addAttachLabel(door, dir, h, w);
-                }
-            }
+
+    private void printDir(Direction dir){
+        if(dir.equals(Direction.NORTH)){
+            System.out.println("north");
+        } else if(dir.equals(Direction.EAST)) {
+            System.out.println("east");
+        } else if(dir.equals(Direction.SOUTH)){
+            System.out.println("south");
+        } else if(dir.equals(Direction.WEST)) {
+            System.out.println("west");
         }
     }
 
@@ -68,39 +79,14 @@ public class LayoutPanel extends JPanel
         System.out.println("render room");
         FurnitureAI ai = new FurnitureAI();
         board = ai.decorateRoom(board);
-        renderFloor(board);
-        renderAttachments(board);
+        populateRoom(board);
         System.out.println("rendered");
-    }
-
-
-
-    private void getImages(){
-        floor = ImageHandler.getFloor();
-        wall = ImageHandler.getWall();
-        bed = ImageHandler.getBed();
-        door = ImageHandler.getDoor();
-        window = ImageHandler.getWindow();
-    }
-
-    private void addAttachLabel(ImageIcon ii, Direction dir, int h, int w){
-        JLabel l = new JLabel();
-        l.setIcon(ii);
-        l.setLocation(w, h);
-        add(l);
-    }
-
-    private ImageIcon rotateImage(ImageIcon ii, Direction dir){
-
-
-        return ii;
     }
 
 
     private void addLabel(ImageIcon ii, int h, int w) {
         JLabel l = new JLabel();
         l.setIcon(ii);
-        l.setLocation(w*10,h*10);
         add(l);
     }
 }

@@ -60,7 +60,7 @@ public class MainFrame extends JFrame
         readMI.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 System.out.println("read datafile");
-                read();
+
             }
         });
 
@@ -81,13 +81,5 @@ public class MainFrame extends JFrame
 
         menubar.add(file);
         setJMenuBar(menubar);
-    }
-
-    /**
-     * read indata
-     */
-    private void read(){
-
-
     }
 }
