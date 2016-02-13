@@ -24,8 +24,6 @@ public class FurnitureAI {
         attachmentList = collectAttachmentsFromWarehouse();
         furnitureList = collectFurnitureFromWarehouse();
         this.board = board;
-
-
     }
 
 

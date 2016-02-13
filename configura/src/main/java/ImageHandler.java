@@ -14,7 +14,7 @@ public class ImageHandler
 
     private static ImageIcon img_floor;
     private static ImageIcon img_wall;
-    private static ImageIcon img_bed;
+    private static ImageIcon img_bed, img_door, img_window;
 
     public static void loadImages() {
 
@@ -36,7 +36,18 @@ public class ImageHandler
 	} catch (IOException e) {
 	    System.out.println(e);
 	}
-
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Door\\door.png"));
+	    img_door = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Window\\window.png"));
+	    img_window = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
     }
 
     public static ImageIcon getFloor() {
@@ -49,6 +60,14 @@ public class ImageHandler
 
     public static ImageIcon getBed() {
 	return img_bed;
+    }
+
+    public static ImageIcon getDoor() {
+	return img_door;
+    }
+
+    public static ImageIcon getWindow() {
+	return img_window;
     }
 }
 
