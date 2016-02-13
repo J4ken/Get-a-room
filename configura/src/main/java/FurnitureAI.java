@@ -73,16 +73,16 @@ public class FurnitureAI {
 
         if(mats > 0) {
             Furniture mat = matList.get(0);
-            int ySquares = mat.getHeight() / 10;
-            int xSquares = mat.getWidth() / 10;
-            int yStart = 15;
-            int xStart = 15;
+            int ySquares = mat.getWidth() / 10;
+            int xSquares = mat.getHeight() / 10;
+            int yStart = 6;
+            int xStart = 17;
             // 250 - 100
             boolean mainPlaced = false;
             for(int y = yStart; y < (yStart + ySquares); y++) {
                 for (int x = xStart; x < (xStart + xSquares); x++) {
-                    mat.setDirection(Direction.SOUTH);
-                    newBoard.setFurnitures(15, 15, mat);
+                    mat.setDirection(Direction.WEST);
+                    newBoard.setFurnitures(6, 17, mat);
                     if(!mainPlaced) {
                         mainPlaced = true;
                         newBoard.setSquares(y, x, SquareType.MATMAIN);
@@ -94,15 +94,15 @@ public class FurnitureAI {
         }
         if(mats > 1) {
             Furniture mat2 = matList.get(1);
-            int ySquares = mat2.getHeight() / 10;
-            int xSquares = mat2.getWidth() / 10;
-            int yStart = 30;
-            int xStart = 15;
+            int ySquares = mat2.getWidth() / 10;
+            int xSquares = mat2.getHeight() / 10;
+            int yStart = 27;
+            int xStart = 17;
             boolean mainPlaced = false;
             for(int y = yStart; y < (yStart + ySquares); y++) {
                 for (int x = xStart; x < (xStart + xSquares); x++) {
-                    mat2.setDirection(Direction.SOUTH);
-                    newBoard.setFurnitures(30, 15, mat2);
+                    mat2.setDirection(Direction.WEST);
+                    newBoard.setFurnitures(27, 17, mat2);
                     if(!mainPlaced) {
                         mainPlaced = true;
                         newBoard.setSquares(y, x, SquareType.MATMAIN);
@@ -503,6 +503,13 @@ public class FurnitureAI {
         Furniture kuk2 = furnitureFactory.createFurniture("säNg");
         newFurnitureList.add(kuk1);
         newFurnitureList.add(kuk2);
+
+
+        Furniture kuk3 = furnitureFactory.createFurniture("matta");
+        Furniture kuk4 = furnitureFactory.createFurniture("matta");
+        newFurnitureList.add(kuk3);
+        newFurnitureList.add(kuk4);
+
         return newFurnitureList;
     }
 
