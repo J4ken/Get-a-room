@@ -46,6 +46,7 @@ public class FurnitureAI {
     }
 
     private void doBedModule() {
+
     }
 
 

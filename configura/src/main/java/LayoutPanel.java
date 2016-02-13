@@ -16,7 +16,10 @@ public class LayoutPanel extends JPanel
 {
     private ImageIcon floor;
     private ImageIcon wall;
+
     private ImageIcon bed;
+    private ImageIcon window;
+    private ImageIcon door;
 
     public LayoutPanel(){
         ImageHandler.loadImages();
@@ -41,16 +44,19 @@ public class LayoutPanel extends JPanel
     }
 
     private void renderAttachments(Board board){
+        System.out.println("hej");
         for(int h = 0; h < board.ROOM_HEIGHT; h++){
             for(int w = 0; w < board.ROOM_WIDTH; w++){
                 SquareType s = board.getSquareType(h, w);
                 if(s == SquareType.WINDOWMAIN){
+                    System.out.println("WindowMain");
                     Direction dir = board.getAttachments(w, h).getDirection();
-                    
+                    addAttachLabel(window, dir, h, w);
+                } else if(s == SquareType.DOORMAIN){
+                    System.out.println("DoorMain");
+                    Direction dir = board.getAttachments(w, h).getDirection();
+                    addAttachLabel(door, dir, h, w);
                 }
-
-
-
             }
         }
     }
@@ -59,23 +65,42 @@ public class LayoutPanel extends JPanel
      *  renders the room according to the board
      */
     public void renderRoom(Board board){
-        System.out.println("renderRom");
+        System.out.println("render room");
+        FurnitureAI ai = new FurnitureAI();
+        ai.decorateRoom(board);
         renderFloor(board);
         renderAttachments(board);
+        System.out.println("rendered");
     }
+
+
 
     private void getImages(){
         floor = ImageHandler.getFloor();
         wall = ImageHandler.getWall();
         bed = ImageHandler.getBed();
+        door = ImageHandler.getDoor();
+        window = ImageHandler.getWindow();
     }
 
-    private void addAttachLabel(ImageIcon ii, int h, int w){
+    private void addAttachLabel(ImageIcon ii, Direction dir, int h, int w){
+        JLabel l = new JLabel();
+        l.setIcon(ii);
+        l.setLocation(w, h);
+        add(l);
     }
+
+    private ImageIcon rotateImage(ImageIcon ii, Direction dir){
+
+
+        return ii;
+    }
+
 
     private void addLabel(ImageIcon ii, int h, int w) {
         JLabel l = new JLabel();
         l.setIcon(ii);
+        l.setLocation(w*12,h*12);
         add(l);
     }
 }
