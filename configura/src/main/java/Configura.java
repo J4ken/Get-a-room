@@ -24,6 +24,6 @@ public class Configura
 	}*/
 	FurnitureInventory furniture = new FurnitureInventory();
 	furniture.CreateFurniture(buildFurniture.getReadFurniture());
-	furniture.getFurnitures();
+	furniture.getFurnitureList();
     }
 }
