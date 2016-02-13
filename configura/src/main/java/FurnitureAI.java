@@ -156,8 +156,8 @@ public class FurnitureAI {
         if(count > 7) {
             tv--;
             Furniture tvFur = tvList.get(0);
-            int ySquares = tvFur.getWidth() / 10;
-            int xSquares = tvFur.getHeight() / 10;
+            int ySquares = tvFur.getHeight() / 10;
+            int xSquares = tvFur.getWidth() / 10;
             int yStart = 15;
             int xStart = 1;
             boolean mainPlaced = false;
