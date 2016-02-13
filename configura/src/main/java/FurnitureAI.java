@@ -187,12 +187,12 @@ public class FurnitureAI {
                             int ySquares = deskFur.getHeight() / 10;
                             int xSquares = deskFur.getWidth() / 10;
                             int yStart = 1;
-                            int xStart = 30;
+                            int xStart = 15;
                             boolean mainPlaced = false;
                             for (int y = yStart; y < (yStart + ySquares); y++) {
                                 for (int x = xStart; x < (xStart + xSquares); x++) {
                                     deskFur.setDirection(Direction.SOUTH);
-                                    board.setFurnitures(1, 30, deskFur);
+                                    board.setFurnitures(1, 15, deskFur);
                                     if (!mainPlaced) {
                                         mainPlaced = true;
                                         newBoard.setSquares(y, x, SquareType.DESKMAIN);
@@ -208,12 +208,12 @@ public class FurnitureAI {
                             int ySquares = chairFuck.getHeight() / 10;
                             int xSquares = chairFuck.getWidth() / 10;
                             int yStart = 9;
-                            int xStart = 34;
+                            int xStart = 19;
                             boolean mainPlaced = false;
                             for (int y = yStart; y < (yStart + ySquares); y++) {
                                 for (int x = xStart; x < (xStart + xSquares); x++) {
                                     chairFuck.setDirection(Direction.NORTH);
-                                    board.setFurnitures(9, 34, chairFuck);
+                                    board.setFurnitures(9, 19, chairFuck);
                                     if (!mainPlaced) {
                                         mainPlaced = true;
                                         newBoard.setSquares(y, x, SquareType.DESKCHAIRMAIN);
