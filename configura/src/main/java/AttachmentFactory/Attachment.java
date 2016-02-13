@@ -12,5 +12,8 @@ public interface Attachment {
     int getXEnd();
     int getYEnd();
 
+    int getWidth();
+    int getHeight();
+
     Direction getDirection();
 }
