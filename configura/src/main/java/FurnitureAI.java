@@ -522,8 +522,8 @@ public class FurnitureAI {
         AttachmentFactory attachmentFactory = new AttachmentFactory();
 
         Attachment door1 = attachmentFactory.createAttachment("dÖrR", 300, 500, 390, 500);
-        Attachment window1 = attachmentFactory.createAttachment("FöNStEr", 0, 350, 0, 450);
-        Attachment window2 = attachmentFactory.createAttachment("fÖnStEr", 300, 0, 400, 0);
+        Attachment window1 = attachmentFactory.createAttachment("FöNStEr", 100, 0, 200, 0);
+        Attachment window2 = attachmentFactory.createAttachment("fÖnStEr", 500, 100, 500, 200);
 
         newAttachmentList.add(door1);
         newAttachmentList.add(window1);
