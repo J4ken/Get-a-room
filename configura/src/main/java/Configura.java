@@ -10,10 +10,8 @@ public class Configura
 {
     public static void main(String[] args){
 	System.out.println("wabadabadubdub");
-	ImageHandler.loadImages();
 	MainFrame frame = new MainFrame();
 	frame.setUpFrame();
-  	frame.createMenuBar();
 	frame.pack();
 	frame.setVisible(true);
     }
