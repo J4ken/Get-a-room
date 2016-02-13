@@ -21,6 +21,7 @@ public class ImageHandler
     private static ImageIcon img_desk_N, img_desk_E, img_desk_S, img_desk_W;
     private static ImageIcon img_carpet_N, img_carpet_E, img_carpet_S, img_carpet_W;
     private static ImageIcon img_shelf_N, img_shelf_E, img_shelf_S, img_shelf_W;
+    private static ImageIcon img_TV_N, img_TV_E, img_TV_S, img_TV_W;
 
 
     public static void loadImages() {
@@ -228,6 +229,34 @@ public class ImageHandler
 	} catch (IOException e) {
 	    System.out.println(e);
 	}
+
+	/**
+	 * BOOKSHELF
+	 */
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\TV\\TV_N.png"));
+	    img_TV_N = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\TV\\TV_E.png"));
+	    img_TV_E = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\TV\\TV_N.png"));
+	    img_TV_S = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\TV\\TV_E.png"));
+	    img_TV_W = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
     }
 
 
@@ -342,6 +371,21 @@ public class ImageHandler
 	    return img_shelf_S;
 	} else if(dir.equals(Direction.WEST)){
 	    return img_shelf_W;
+	} else {
+    	System.out.println("capet NULL");
+	    return null;
+	}
+    }
+
+    public static ImageIcon getTV(Direction dir) {
+	if(dir.equals(Direction.NORTH)){
+	    return img_TV_N;
+	} else if(dir.equals(Direction.EAST)){
+	    return img_TV_E;
+	} else if(dir.equals(Direction.SOUTH)){
+	    return img_TV_S;
+	} else if(dir.equals(Direction.WEST)){
+	    return img_TV_W;
 	} else {
     	System.out.println("capet NULL");
 	    return null;

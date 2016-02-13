@@ -66,6 +66,10 @@ public class LayoutPanel extends JPanel
                     Direction dir = board.getFurniture(h, w).getDirection();
                     img = ImageHandler.getShelf(dir);
                     addLabel(img, h, w);
+                } else if (board.getSquareType(h, w).equals(SquareType.WALLTVMAIN)) {
+                    Direction dir = board.getFurniture(h, w).getDirection();
+                    img = ImageHandler.getTV(dir);
+                    addLabel(img, h, w);
                 } else {
                 }
             }
@@ -117,6 +121,9 @@ public class LayoutPanel extends JPanel
                     Direction dir = board.getFurniture(h, w).getDirection();
                     furnitureSpot.append("Soffa\t" +  h +"," + w+",");
                 } else if (board.getSquareType(h, w).equals(SquareType.DESKMAIN)) {
+                    Direction dir = board.getFurniture(h, w).getDirection();
+                    furnitureSpot.append("Skrivbord\t" + h +"," + w+",");
+                } else if (board.getSquareType(h, w).equals(SquareType.WALLTVMAIN)) {
                     Direction dir = board.getFurniture(h, w).getDirection();
                     furnitureSpot.append("Skrivbord\t" + h +"," + w+",");
                 } else {
