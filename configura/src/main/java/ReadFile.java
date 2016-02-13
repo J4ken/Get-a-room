@@ -2,7 +2,6 @@ package main.java;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class ReadFile
@@ -15,7 +14,11 @@ public class ReadFile
 	path = filePath;
     }
 
-    public String[] OpenFile() throws IOException {
+    public String[] getReadFurniture() throws IOException, NotInBoardBoundsException {
+	return OpenFile();
+    }
+
+    private String[] OpenFile() throws IOException, NotInBoardBoundsException {
 	String furniture;
 	readFurniture = new String[readLines()];
 	FileReader fileChar = new FileReader(path);
@@ -24,6 +27,14 @@ public class ReadFile
 	for (int i=0; i<readFurniture.length; i++) {
 	    if(i<DOORWINDOWS) {
 		readFurniture[i] = fileLine.readLine();
+		String[] current = readFurniture[i].split("	");
+
+		if(current.length > 1 ) {
+		    String[] furniturePlace = current[1].split(",");
+		    checkInput(furniturePlace);
+		}
+
+
 	    }
 	    else {
 		furniture = fileLine.readLine();
@@ -47,8 +58,18 @@ public class ReadFile
 	    numberOfLines++;
 	}
 	fileLine.close();
-	fileChar.close();
+	file.close();
 	return numberOfLines;
     }
+
+
+
+private void checkInput(String[] furniturePlace) throws NotInBoardBoundsException {
+    for ( String c: furniturePlace) {
+	if(Integer.parseInt(c) < 0 || Integer.parseInt(c) > 500) {
+	    throw new NotInBoardBoundsException("Furniture can't be placed outside 0 to 500");
+	}
+    }
+}
 
 }
