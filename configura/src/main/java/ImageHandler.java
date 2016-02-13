@@ -20,6 +20,7 @@ public class ImageHandler
     private static ImageIcon img_couch_N, img_couch_E, img_couch_S, img_couch_W;
     private static ImageIcon img_desk_N, img_desk_E, img_desk_S, img_desk_W;
     private static ImageIcon img_carpet_N, img_carpet_E, img_carpet_S, img_carpet_W;
+    private static ImageIcon img_shelf_N, img_shelf_E, img_shelf_S, img_shelf_W;
 
 
     public static void loadImages() {
@@ -189,14 +190,41 @@ public class ImageHandler
 	    System.out.println(e);
 	}
 	try {
-	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Carpet\\desk_S.png"));
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Carpet\\desk_N.png"));
 	    img_carpet_S = new ImageIcon(tmp_img);
 	} catch (IOException e) {
 	    System.out.println(e);
 	}
 	try {
-	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Carpet\\desk_W.png"));
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Carpet\\desk_E.png"));
 	    img_carpet_W = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	/**
+	 * BOOKSHELF
+	 */
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Shelf\\Shelf_N.png"));
+	    img_shelf_N = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Shelf\\Shelf_E.png"));
+	    img_shelf_E = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Shelf\\Shelf_N.png"));
+	    img_shelf_S = new ImageIcon(tmp_img);
+	} catch (IOException e) {
+	    System.out.println(e);
+	}
+	try {
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\Shelf\\Shelf_E.png"));
+	    img_shelf_W = new ImageIcon(tmp_img);
 	} catch (IOException e) {
 	    System.out.println(e);
 	}
@@ -299,6 +327,21 @@ public class ImageHandler
 	    return img_carpet_S;
 	} else if(dir.equals(Direction.WEST)){
 	    return img_carpet_W;
+	} else {
+    	System.out.println("capet NULL");
+	    return null;
+	}
+    }
+
+    public static ImageIcon getShelf(Direction dir) {
+	if(dir.equals(Direction.NORTH)){
+	    return img_shelf_N;
+	} else if(dir.equals(Direction.EAST)){
+	    return img_shelf_E;
+	} else if(dir.equals(Direction.SOUTH)){
+	    return img_shelf_S;
+	} else if(dir.equals(Direction.WEST)){
+	    return img_shelf_W;
 	} else {
     	System.out.println("capet NULL");
 	    return null;
