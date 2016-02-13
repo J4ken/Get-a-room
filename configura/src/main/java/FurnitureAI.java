@@ -70,92 +70,99 @@ public class FurnitureAI {
             if(xStart == 50) xStart += 1;
             if(yStart == 50) yStart += 1;
 
-
-            if(dir.equals(Direction.NORTH)) {
-                Boolean mainPlaced = false;
-                for (int x = xStart; x > (xStart - xSquares); x--) {
-                    for(int y = yStart; y > (yStart - ySquares); y--) {
-                        board.setAttachments(y, x, obj);
-                        if (!mainPlaced) {
-                            mainPlaced = true;
-                            if(obj.getClass().equals(Door.class)) {
-                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
-                            } else {
-                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
-                            }
-                        } else {
-                            if(obj.getClass().equals(Door.class)) {
-                                newBoard.setSquares(y, x, SquareType.DOOR);
-                            } else {
-                                newBoard.setSquares(y, x, SquareType.WINDOW);
-                            }
-                        }
-                    }
-                }
-            } else if (dir.equals(Direction.SOUTH)) {
-                Boolean mainPlaced = false;
-                for (int x = xStart; x < (xStart + xSquares); x++) {
-                    for(int y = yStart; y < (yStart + ySquares); y++) {
-                        board.setAttachments(y, x, obj);
-                        if (!mainPlaced) {
-                            mainPlaced = true;
-                            if(obj.getClass().equals(Door.class)) {
-                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
-                            } else {
-                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
-                            }
-                        } else {
-                            if(obj.getClass().equals(Door.class)) {
-                                newBoard.setSquares(y, x, SquareType.DOOR);
-                            } else {
-                                newBoard.setSquares(y, x, SquareType.WINDOW);
-                            }
-                        }
-                    }
-                }
-            } else if (dir.equals(Direction.WEST)) {
-                Boolean mainPlaced = false;
-                for (int x = xStart; x > (xStart - xSquares); x--) {
-                    for(int y = yStart; y < (yStart + ySquares); y++) {
-                        board.setAttachments(y, x, obj);
-                        if (!mainPlaced) {
-                            mainPlaced = true;
-                            if(obj.getClass().equals(Door.class)) {
-                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
-                            } else {
-                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
-                            }
-                        } else {
-                            if(obj.getClass().equals(Door.class)) {
-                                newBoard.setSquares(y, x, SquareType.DOOR);
-                            } else {
-                                newBoard.setSquares(y, x, SquareType.WINDOW);
-                            }
-                        }
-                    }
-                }
+            // TEST
+            newBoard.setAttachments(yStart, xStart, obj);
+            if(obj.getClass().equals(Door.class)) {
+                newBoard.setSquares(yStart, xStart, SquareType.DOORMAIN);
             } else {
-                Boolean mainPlaced = false;
-                for (int x = xStart; x < (xStart + xSquares); x++) {
-                    for(int y = yStart; y > (yStart - ySquares); y--) {
-                        board.setAttachments(y, x, obj);
-                        if (!mainPlaced) {
-                            mainPlaced = true;
-                            if(obj.getClass().equals(Door.class)) {
-                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
-                            } else {
-                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
-                            }
-                        } else {
-                            if(obj.getClass().equals(Door.class)) {
-                                newBoard.setSquares(y, x, SquareType.DOOR);
-                            } else {
-                                newBoard.setSquares(y, x, SquareType.WINDOW);
-                            }
-                        }
-                    }
-                }
+                newBoard.setSquares(yStart, xStart, SquareType.WINDOWMAIN);
             }
+//
+//            if(dir.equals(Direction.NORTH)) {
+//                Boolean mainPlaced = false;
+//                for (int x = xStart; x > (xStart - xSquares); x--) {
+//                    for(int y = yStart; y > (yStart - ySquares); y--) {
+//                        board.setAttachments(y, x, obj);
+//                        if (!mainPlaced) {
+//                            mainPlaced = true;
+//                            if(obj.getClass().equals(Door.class)) {
+//                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
+//                            } else {
+//                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
+//                            }
+//                        } else {
+//                            if(obj.getClass().equals(Door.class)) {
+//                                newBoard.setSquares(y, x, SquareType.DOOR);
+//                            } else {
+//                                newBoard.setSquares(y, x, SquareType.WINDOW);
+//                            }
+//                        }
+//                    }
+//                }
+//            } else if (dir.equals(Direction.SOUTH)) {
+//                Boolean mainPlaced = false;
+//                for (int x = xStart; x < (xStart + xSquares); x++) {
+//                    for(int y = yStart; y < (yStart + ySquares); y++) {
+//                        board.setAttachments(y, x, obj);
+//                        if (!mainPlaced) {
+//                            mainPlaced = true;
+//                            if(obj.getClass().equals(Door.class)) {
+//                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
+//                            } else {
+//                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
+//                            }
+//                        } else {
+//                            if(obj.getClass().equals(Door.class)) {
+//                                newBoard.setSquares(y, x, SquareType.DOOR);
+//                            } else {
+//                                newBoard.setSquares(y, x, SquareType.WINDOW);
+//                            }
+//                        }
+//                    }
+//                }
+//            } else if (dir.equals(Direction.WEST)) {
+//                Boolean mainPlaced = false;
+//                for (int x = xStart; x > (xStart - xSquares); x--) {
+//                    for(int y = yStart; y < (yStart + ySquares); y++) {
+//                        board.setAttachments(y, x, obj);
+//                        if (!mainPlaced) {
+//                            mainPlaced = true;
+//                            if(obj.getClass().equals(Door.class)) {
+//                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
+//                            } else {
+//                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
+//                            }
+//                        } else {
+//                            if(obj.getClass().equals(Door.class)) {
+//                                newBoard.setSquares(y, x, SquareType.DOOR);
+//                            } else {
+//                                newBoard.setSquares(y, x, SquareType.WINDOW);
+//                            }
+//                        }
+//                    }
+//                }
+//            } else {
+//                Boolean mainPlaced = false;
+//                for (int x = xStart; x < (xStart + xSquares); x++) {
+//                    for(int y = yStart; y > (yStart - ySquares); y--) {
+//                        board.setAttachments(y, x, obj);
+//                        if (!mainPlaced) {
+//                            mainPlaced = true;
+//                            if(obj.getClass().equals(Door.class)) {
+//                                newBoard.setSquares(y, x, SquareType.DOORMAIN);
+//                            } else {
+//                                newBoard.setSquares(y, x, SquareType.WINDOWMAIN);
+//                            }
+//                        } else {
+//                            if(obj.getClass().equals(Door.class)) {
+//                                newBoard.setSquares(y, x, SquareType.DOOR);
+//                            } else {
+//                                newBoard.setSquares(y, x, SquareType.WINDOW);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
         return newBoard;
     }
