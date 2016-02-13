@@ -246,13 +246,13 @@ public class ImageHandler
 	    System.out.println(e);
 	}
 	try {
-	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\TV\\TV_N.png"));
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\TV\\TV_S.png"));
 	    img_TV_S = new ImageIcon(tmp_img);
 	} catch (IOException e) {
 	    System.out.println(e);
 	}
 	try {
-	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\TV\\TV_E.png"));
+	    tmp_img = ImageIO.read(new File("configura\\src\\main\\resources\\Pictures\\TV\\TV_W.png"));
 	    img_TV_W = new ImageIcon(tmp_img);
 	} catch (IOException e) {
 	    System.out.println(e);
